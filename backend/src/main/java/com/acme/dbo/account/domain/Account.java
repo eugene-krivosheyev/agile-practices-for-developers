@@ -21,7 +21,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @Table(name = "ACCOUNT")
 public class Account {
-
     @Id
     @Column(name = "ID", columnDefinition = "INTEGER")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +31,6 @@ public class Account {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ApiModelProperty(dataType = "Long")
     @Nullable Long clientId;
-
-    @Column(name = "CURRENCY_ID", columnDefinition = "INTEGER")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ApiModelProperty(dataType = "Long")
-    @Nullable Long currencyId;
 
     @Column(name = "AMOUNT", columnDefinition = "DECIMAL(31, 16)")
     @ApiModelProperty(dataType = "String", required = true)

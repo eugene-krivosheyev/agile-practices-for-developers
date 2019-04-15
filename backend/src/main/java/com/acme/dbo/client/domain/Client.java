@@ -26,12 +26,11 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @ApiModel(description = "Entity with personalized information about client")
 @Entity
 @Table(name = "CLIENT")
-public class Client extends ClientAuth implements UserDetails {
-
+public class Client {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,12 +42,6 @@ public class Client extends ClientAuth implements UserDetails {
     @NonNull @Pattern(regexp = "^[a-zA-Z0-9_@\\-\\\\.]+$") @Size(min = 5, max = 128)
     @Column(name = "LOGIN")
     String login;
-
-    @ApiModelProperty(notes = "Client name")
-    @Nullable @Pattern(regexp = "^[a-zA-Z0-9_@\\-\\\\.]+$") @Size(min = 5, max = 128)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @Column(name = "USERNAME")
-    String username;
 
     @EqualsAndHashCode.Exclude @NonNull @Size(min = 5, max = 128)
     @JsonIgnore
@@ -73,66 +66,4 @@ public class Client extends ClientAuth implements UserDetails {
     @Column(name = "ENABLED", insertable = false)
     @JsonIgnore
     Boolean enabled;
-
-    @ApiModelProperty(notes = "Country of client location")
-    @EqualsAndHashCode.Exclude @Nullable
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @Column(name = "LOCALE", insertable = false)
-    String locale;
-
-
-    @Transient
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Transient
-    @ApiModelProperty(notes = "Client password", example = "adminpassword")
-    @Override
-    @Nullable
-    @JsonIgnore
-    @Pattern(regexp = "^[a-zA-Z0-9_@\\-\\\\.]+$") @Size(min = 5, max = 128)
-    public String getPassword() {
-        return secret;
-    }
-    public void setPassword(String password) {
-        this.secret = password;
-    }
-
-    @Transient
-    @JsonIgnore
-    @Override
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ApiModelProperty(hidden = true)
-    public Collection<GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
-    }
-
-    @Transient
-    @JsonIgnore
-    @Override
-    @ApiModelProperty(hidden = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Transient
-    @JsonIgnore
-    @Override
-    @ApiModelProperty(hidden = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Transient
-    @JsonIgnore
-    @Override
-    @ApiModelProperty(hidden = true)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
 }
