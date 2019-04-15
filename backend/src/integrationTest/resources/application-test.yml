@@ -1,0 +1,30 @@
+server.port: 8080
+
+spring:
+  jpa:
+    hibernate:
+      show-sql: yes
+      ddl-auto: validate
+
+  datasource:
+    platform: derby
+    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:target/db;create=true
+    username: APP
+    password: APP
+
+    hikari:
+      poolName: hikari-pool-test
+      maximumPoolSize: 3
+      connectionTimeout: 60000
+      idleTimeout: 60000
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/liquibase-changelog-test.groovy
+    user: APP
+    password: APP
+    liquibaseSchema: liquibase
+    rollback-file: build/liquibase-rollback-test.sql
+    test-rollback-on-update: true
+
