@@ -45,7 +45,7 @@ public class ExampleIT {
 
         Client clientFound = jsonMapper.readValue(clientFoundJsonString, Client.class);
 
-        assertThat(clientFound)
-                .isEqualTo(new Client(1L, "root@acme.com", null, null, null, null));
+        assertThat(clientFound.getLogin())
+                .isEqualTo("root@acme.com");
     }
 }
