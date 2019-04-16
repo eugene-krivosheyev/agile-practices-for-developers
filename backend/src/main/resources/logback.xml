@@ -6,10 +6,10 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>log/wallet-app.log</file>
+    <file>log/backend.log</file>
 
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-      <fileNamePattern>log/wallet-app-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+      <fileNamePattern>log/backend-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
       <maxFileSize>10MB</maxFileSize>
       <maxHistory>60</maxHistory> <!-- days -->
       <totalSizeCap>10GB</totalSizeCap>

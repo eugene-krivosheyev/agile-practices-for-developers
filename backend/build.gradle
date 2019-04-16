@@ -87,6 +87,7 @@ dependencies {
     testImplementation 'org.easytesting:fest-assert:1.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.0.RELEASE'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
 
     runtime 'org.liquibase:liquibase-core:3.6.2'
     runtime 'com.mattbertolini:liquibase-slf4j:2.0.0'
