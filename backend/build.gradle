@@ -2,7 +2,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'net.ltgt.apt' version '0.19' //lombok
+    id 'net.ltgt.apt' version '0.21' //lombok
     id 'org.springframework.boot' version '2.1.0.RELEASE'
 
     id 'jacoco'
