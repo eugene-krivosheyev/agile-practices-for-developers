@@ -9,7 +9,7 @@ spring:
   datasource:
     platform: derby
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:target/db;create=true
+    url: jdbc:derby:build/db;create=true
     username: APP
     password: APP
 
@@ -27,4 +27,5 @@ spring:
     liquibaseSchema: liquibase
     rollback-file: build/liquibase-rollback-test.sql
     test-rollback-on-update: true
+
 

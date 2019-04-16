@@ -1,10 +1,10 @@
 package com.acme.dbo;
 
+import com.acme.dbo.client.domain.Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,16 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collection;
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +37,15 @@ public class ExampleIT {
     @Autowired ObjectMapper jsonMapper;
 
     @Test
-    public void test() {
+    public void shouldGetClientWithId1() throws Exception {
+        String clientFoundJsonString = mockMvc.perform(
+                get("/api/client/1").header("X-API-VERSION", "1")
+        ).andDo(print()).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
 
+        Client clientFound = jsonMapper.readValue(clientFoundJsonString, Client.class);
+
+        assertThat(clientFound)
+                .isEqualTo(new Client(1L, "root@acme.com", null, null, null, null));
     }
 }

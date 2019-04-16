@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import java.util.Collection;
+
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PUBLIC;
 
 @RestController
-@RequestMapping(value = "/api/client", headers = "X-API-VERSION")
+@RequestMapping(value = "/api/client", headers = "X-API-VERSION=1")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PUBLIC)
 @Slf4j
 public class ClientController {
-    @Autowired
-    ClientRepository clients;
+    @Autowired ClientRepository clients;
 
     @PostMapping
     @ApiOperation(value = "Registration", notes = "Registered new user in service", response = Client.class)
@@ -33,6 +34,12 @@ public class ClientController {
             clients.saveAndFlush(clientDto),
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Info", notes = "Get client all clients", response = Collection.class)
+    public Collection<Client> getClients() {
+        return clients.findAll();
     }
 
     @GetMapping("/{id}")

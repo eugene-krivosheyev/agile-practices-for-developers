@@ -1,6 +1,7 @@
 package com.acme.dbo;
 
 import com.acme.dbo.account.dao.AccountRepository;
+import com.acme.dbo.account.domain.Account;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,8 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,7 +32,8 @@ public class ExampleTest {
 
     @Test
     public void exampleTest() {
-        given(accountRepository.findById(anyLong())).willReturn(Optional.empty());
+        given(accountRepository.findById(0L)).willReturn(Optional.of(new Account()));
         assertThat("demo string").contains("demo");
+        verify(accountRepository, times(0)).findById(anyLong());
     }
 }

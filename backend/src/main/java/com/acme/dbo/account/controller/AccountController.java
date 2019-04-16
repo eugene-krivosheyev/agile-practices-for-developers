@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +17,14 @@ import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PUBLIC;
 
 @RestController
-@RequestMapping(value = "/api/account", headers = "X-API-VERSION")
+@RequestMapping(value = "/api/account", headers = "X-API-VERSION=1")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PUBLIC)
 @Slf4j
 public class AccountController {
     @Autowired AccountRepository accountRepository;
 
-    @PostMapping
+    @GetMapping
     @ApiOperation(value = "GetAccounts", notes = "Returned all created address of selected currency name")
     public Collection<Account> getAccounts() {
         return accountRepository.findAll();

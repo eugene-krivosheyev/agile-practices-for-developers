@@ -43,7 +43,7 @@ public class Client {
     @Column(name = "LOGIN")
     String login;
 
-    @EqualsAndHashCode.Exclude @NonNull @Size(min = 5, max = 128)
+    @EqualsAndHashCode.Exclude @Nullable @Size(min = 5, max = 128)
     @JsonIgnore
     @ApiModelProperty(notes = "Client secret", example = "749f09bade8aca755660eeb17792da880218d4fbdc4e25fbec279d7fe9f65d70")
     @Column(name = "SECRET")
@@ -58,7 +58,7 @@ public class Client {
     @ApiModelProperty(notes = "Date registered client")
     @EqualsAndHashCode.Exclude @Nullable @Past
     @Column(name = "CREATED", insertable = false)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonIgnore
     Instant created;
 
     @ApiModelProperty(notes = "Active client login")
