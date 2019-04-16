@@ -4,40 +4,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Random;
-
-import static java.lang.System.currentTimeMillis;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PUBLIC;
 
 @Configuration
+@EnableWebSecurity
 @ComponentScan("com.acme")
 @AllArgsConstructor(access = PUBLIC)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class ApplicationConfig {
-    @Bean
-    public MethodValidationPostProcessor methodValidationPostProcessor() {
-        MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
-        return processor;
-    }
-
+public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    public void configureJackson(ObjectMapper jackson2ObjectMapper) { }
-
-    @Bean
-    public MessageDigest hasher() throws NoSuchAlgorithmException {
-        return MessageDigest.getInstance("SHA-256");
+    public void configureJackson(ObjectMapper jackson2ObjectMapper) {
+        //nothing to do with mapper
     }
 
-    @Bean
-    public Random randomizer() {
-        return new Random(currentTimeMillis());
+    @Override
+    protected void configure(HttpSecurity security) throws Exception {
+        security.httpBasic().disable();
     }
+
 }

@@ -40,7 +40,7 @@ public class SwaggerConfig {
             "1.0",
             "",
             new springfox.documentation.service.Contact("Eugene Krivosheyev", "", "ekr@bk.ru"),
-            "Propriate license. All rights reserved. (C) ACME.", "",
+            "All rights reserved. (C) ACME CORP.", "",
             emptyList()
         );
     }
