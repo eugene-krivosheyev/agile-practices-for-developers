@@ -86,3 +86,7 @@ hs_err_pid*
 
 liquibase-rollback.sql
 chromedriver
+
+gradlew
+gradlew.bat
+gradle/

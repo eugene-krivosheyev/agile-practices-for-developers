@@ -15,7 +15,7 @@ spring:
 
     hikari:
       poolName: hikari-pool-test
-      maximumPoolSize: 3
+      maximumPoolSize: 1
       connectionTimeout: 60000
       idleTimeout: 60000
 

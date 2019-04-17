@@ -14,15 +14,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collection;
-import java.util.List;
-
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -40,7 +35,7 @@ public class ExampleIT {
     public void shouldGetClientWithId1() throws Exception {
         String clientFoundJsonString = mockMvc.perform(
                 get("/api/client/1").header("X-API-VERSION", "1")
-        ).andDo(print()).andExpect(status().isOk())
+        ).andDo(print()).andExpect(status().is(200))
                 .andReturn().getResponse().getContentAsString();
 
         Client clientFound = jsonMapper.readValue(clientFoundJsonString, Client.class);

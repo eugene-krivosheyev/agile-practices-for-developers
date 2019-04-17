@@ -88,6 +88,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.0.RELEASE'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
     testImplementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    testImplementation 'io.cucumber:cucumber-java:4.3.0'
+    testImplementation 'io.cucumber:cucumber-spring:4.3.0'
+    testImplementation 'io.cucumber:cucumber-junit:4.3.0'
 
     runtime 'org.liquibase:liquibase-core:3.6.2'
     runtime 'com.mattbertolini:liquibase-slf4j:2.0.0'
@@ -100,6 +103,8 @@ dependencies {
 
 //region pitest as part of test phase
 test {
+    exclude 'com/acme/dbo/cucumber/glue/**'
+
     pitest {
         threads = 4
         outputFormats = ['XML', 'HTML']

@@ -6,6 +6,11 @@ sudo apt install maven
 sudo apt install gradle
 ```
 
+## Generate Gradle wrapper (optional)
+```
+gradle wrapper
+```
+
 ## Build with Gradle and Run raw distr
 ```bash
 ./gradlew clean build
