@@ -90,3 +90,4 @@ chromedriver
 gradlew
 gradlew.bat
 gradle/
+.gradle/
