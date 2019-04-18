@@ -12,7 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 @CucumberOptions(
         features = "src/test/resources",
         plugin = {"pretty", "html:build/reports/cucumber"},
-        strict = false
+        strict = false,
+        tags = "~@tag"
 )
 public class CucumberSuiteIT {
 }
