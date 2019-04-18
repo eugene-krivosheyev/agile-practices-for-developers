@@ -1,12 +1,14 @@
+# language: ru
 @FR
-Feature: Get all users
+Функционал: Get all users
   As a Operations I want get user details for report.
 
   Background:
-    Given Application is running on port 8080
+    Дано Application is running on port 8080
 
-  Scenario: Get all users
-    When REST-client make GET request to '/api/client/1'
-      And REST-client supply HTTP header 'X-API-VERSION' as '1'
-    Then  REST-client get status code '200'
-      And REST-client get user with email 'root@acme.cm'
+  Сценарий: Get all users
+    Дано
+    Когда Operations want to get user '1'
+      И REST-client supply HTTP header 'X-API-VERSION' as '1'
+    Тогда
+      И Operations get user with email 'root@acme.cm'
