@@ -58,19 +58,16 @@ _Как поменять себя и процесс, чтобы втаскива
 - Wi-fi адаптер
 
 ### Software
-1. git
 1. JDK8
-1. Maven
-1. IDEA
+1. IDEA (trial Ultimate)
 1. Docker
+1. Google Chrome 60+
 
-### Локальная сеть Wi-Fi с доступом в интернет
-```
-http://git-scm.com
-http://github.com
-http://oracle.com
-http://maven.org
-http://mvnrepository.com
-http://repo.maven.apache.org
-http://www.jetbrains.com
-```
+### Доступы с машин участников к
+1. Внешнему публичному BitBucket git repo для локального git-клиента на чтение и запись: git pull и git push
+1. Внешнему публичному BitBucket через web-интерфейс для code review
+1. Внешнему публичному Maven repo для локального maven на чтение и запись: mvn dependency:resolve и mvn deploy
+1. Внешнему публичному серверу CI Bamboo через веб-интерфейс
+1. Внешнему публичному Docker hub для локального docker: docker pull и docker push
+1. Внешнему публичному Linux-хосту по ssh: для клиента Ansible
+1. Внешнему публичному серверу Sonar через web-интерфейс
