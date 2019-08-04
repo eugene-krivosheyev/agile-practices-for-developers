@@ -71,6 +71,6 @@ _Как поменять себя и процесс, чтобы втаскива
 1. https://bitbucket.org:443 :80
 1. https://sonarcloud.io:443 :80 
 1. https://hub.docker.com:443 :80 
-1. http://ec2-35-158-162-238.eu-central-1.compute.amazonaws.com:80 :443 :8080 :8085
-1. http://ec2-3-121-98-71.eu-central-1.compute.amazonaws.com:8085 :80 :443 :8080
+1. http://ec2-35-158-162-238.eu-central-1.compute.amazonaws.com:80 :443 :8080 :8085 :9000
+1. http://ec2-3-121-98-71.eu-central-1.compute.amazonaws.com:8085 :80 :443 :8080 :9000
 1. http://ec2-35-156-72-179.eu-central-1.compute.amazonaws.com:80 :443 :8080 :22
