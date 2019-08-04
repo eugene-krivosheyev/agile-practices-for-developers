@@ -58,16 +58,19 @@ _Как поменять себя и процесс, чтобы втаскива
 - Wi-fi адаптер
 
 ### Software
+1. git client
 1. JDK8
 1. IDEA (trial Ultimate)
-1. Docker
+1. maven
 1. Google Chrome 60+
+1. ssh
+1. Ansible
+1. Docker
 
 ### Доступы с машин участников к
-1. Внешнему публичному BitBucket git repo для локального git-клиента на чтение и запись: git pull и git push
-1. Внешнему публичному BitBucket через web-интерфейс для code review
-1. Внешнему публичному Maven repo для локального maven на чтение и запись: mvn dependency:resolve и mvn deploy
-1. Внешнему публичному серверу CI Bamboo через веб-интерфейс
-1. Внешнему публичному Docker hub для локального docker: docker pull и docker push
-1. Внешнему публичному Linux-хосту по ssh: для клиента Ansible
-1. Внешнему публичному серверу Sonar через web-интерфейс
+1. https://bitbucket.org:443 :80
+1. https://sonarcloud.io:443 :80 
+1. https://hub.docker.com:443 :80 
+1. http://ec2-35-158-162-238.eu-central-1.compute.amazonaws.com:80 :443 :8080 :8085
+1. http://ec2-3-121-98-71.eu-central-1.compute.amazonaws.com:8085 :80 :443 :8080
+1. http://ec2-35-156-72-179.eu-central-1.compute.amazonaws.com:80 :443 :8080 :22
