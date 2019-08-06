@@ -30,7 +30,7 @@ public class SeleniumIT {
 //        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--whitelisted-ips=''");
+        chromeOptions.addArguments("--whitelisted-ips='0.0.0.0/0'");
         chromeOptions.addArguments("--verbose");
         chromeOptions.addArguments("--disable-gpu");
 
