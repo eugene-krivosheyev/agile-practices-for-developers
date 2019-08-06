@@ -28,16 +28,7 @@ public class SeleniumIT {
 
     @Test @Rollback
     public void shouldRespondWithSwaggerUI() throws InterruptedException {
-        //download at https://chromedriver.storage.googleapis.com/index.html?path=74.0.3729.6/
-//        System.setProperty("webdriver.chrome.driver", "chromedriver");
-//        ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("--headless");
-//        chromeOptions.addArguments("--whitelisted-ips='0.0.0.0/0'");
-//        chromeOptions.addArguments("--verbose");
-//        chromeOptions.addArguments("--disable-gpu");
-
         WebDriverManager.phantomjs().setup();
-        Capabilities desiredCapabilities;
         WebDriver driver = new PhantomJSDriver();
 
         driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
