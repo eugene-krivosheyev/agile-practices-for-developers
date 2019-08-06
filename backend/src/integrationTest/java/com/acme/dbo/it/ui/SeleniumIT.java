@@ -30,6 +30,7 @@ public class SeleniumIT {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--whitelisted-ips=''");
+        chromeOptions.addArguments("--verbose");
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
         WebDriverWait wait = new WebDriverWait(driver, 10);
