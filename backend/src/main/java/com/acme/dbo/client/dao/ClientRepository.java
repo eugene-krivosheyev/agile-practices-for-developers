@@ -1,6 +1,7 @@
 package com.acme.dbo.client.dao;
 
 import com.acme.dbo.client.domain.Client;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

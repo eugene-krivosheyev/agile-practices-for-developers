@@ -1,4 +1,4 @@
-package com.acme.dbo.ui;
+package com.acme.dbo.it.ui;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -11,22 +11,24 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Ignore
+@ActiveProfiles("it")
+@Transactional
 public class SeleniumIT {
     @LocalServerPort protected int serverPort;
 
-    @Test
+    @Test @Rollback
     public void shouldRespondWithSwaggerUI() throws InterruptedException {
         //download at https://chromedriver.storage.googleapis.com/index.html?path=74.0.3729.6/
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--headless");
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
         WebDriverWait wait = new WebDriverWait(driver, 10);

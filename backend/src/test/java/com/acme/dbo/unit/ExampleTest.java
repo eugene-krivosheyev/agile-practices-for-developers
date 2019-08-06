@@ -1,10 +1,11 @@
-package com.acme.dbo;
+package com.acme.dbo.unit;
 
 import com.acme.dbo.account.dao.AccountRepository;
 import com.acme.dbo.account.domain.Account;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.*;
 import org.springframework.boot.test.context.*;

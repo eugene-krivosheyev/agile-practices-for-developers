@@ -91,3 +91,9 @@ gradlew
 gradlew.bat
 gradle/
 .gradle/
+
+.settings/
+.classpath/
+.project/
+.vscode/
+log/

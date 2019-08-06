@@ -1,7 +1,7 @@
 package db
 
 databaseChangeLog() {
-    include(file: 'db/liquibase-changelog.groovy') //production db schema
+    include(file: 'classpath:/db/liquibase-changelog.groovy') //production db schema
 
     changeSet(id: 'test-0001', author: 'Eugene Krivosheyev') {
         comment 'Authentication test data'

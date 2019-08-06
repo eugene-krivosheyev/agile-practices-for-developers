@@ -1,19 +1,19 @@
-package com.acme.dbo.bdd;
+package com.acme.dbo.it.bdd;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("it")
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources",
-        plugin = {"pretty", "html:build/reports/cucumber"},
+        features = "classpath:/features",
+        plugin = {"pretty", "html:target/reports/cucumber"},
         strict = false,
-        tags = "~@tag"
+        tags = "not @tag"
 )
 public class CucumberSuiteIT {
 }

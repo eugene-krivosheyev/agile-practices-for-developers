@@ -1,4 +1,4 @@
-package com.acme.dbo.cucumber.glue;
+package com.acme.dbo.it.bdd.glue;
 
 import com.acme.dbo.client.domain.Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
-@ActiveProfiles("test")
+@ActiveProfiles("it")
 @FieldDefaults(level = PRIVATE)
 @NoArgsConstructor
 public class RestOperations {

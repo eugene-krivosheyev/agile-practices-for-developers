@@ -1,4 +1,4 @@
-package com.acme.dbo.cucumber.glue;
+package com.acme.dbo.it.bdd.glue;
 
 import com.acme.dbo.client.domain.Client;
 
