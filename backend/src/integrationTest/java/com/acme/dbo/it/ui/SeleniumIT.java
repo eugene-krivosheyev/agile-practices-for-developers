@@ -5,9 +5,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,14 +30,15 @@ public class SeleniumIT {
     public void shouldRespondWithSwaggerUI() throws InterruptedException {
         //download at https://chromedriver.storage.googleapis.com/index.html?path=74.0.3729.6/
 //        System.setProperty("webdriver.chrome.driver", "chromedriver");
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--whitelisted-ips='0.0.0.0/0'");
-        chromeOptions.addArguments("--verbose");
-        chromeOptions.addArguments("--disable-gpu");
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.addArguments("--headless");
+//        chromeOptions.addArguments("--whitelisted-ips='0.0.0.0/0'");
+//        chromeOptions.addArguments("--verbose");
+//        chromeOptions.addArguments("--disable-gpu");
 
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(chromeOptions);
+        WebDriverManager.phantomjs().setup();
+        Capabilities desiredCapabilities;
+        WebDriver driver = new PhantomJSDriver();
 
         driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
         WebDriverWait wait = new WebDriverWait(driver, 10);
