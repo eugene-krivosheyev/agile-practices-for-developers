@@ -1,5 +1,6 @@
 package com.acme.dbo.it.ui;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,12 +27,16 @@ public class SeleniumIT {
     @Test @Rollback
     public void shouldRespondWithSwaggerUI() throws InterruptedException {
         //download at https://chromedriver.storage.googleapis.com/index.html?path=74.0.3729.6/
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--whitelisted-ips=''");
         chromeOptions.addArguments("--verbose");
+        chromeOptions.addArguments("--disable-gpu");
+
+        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver(chromeOptions);
+
         driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("base-url")));
