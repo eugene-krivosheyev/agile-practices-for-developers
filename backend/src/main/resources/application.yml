@@ -24,7 +24,7 @@ spring:
   liquibase:
     contexts: prod
     enabled: true
-    change-log: classpath:/db/liquibase-changelog-test.groovy
+    change-log: classpath:/db/liquibase-changelog.groovy
     user: APP
     password: APP
     liquibaseSchema: liquibase
