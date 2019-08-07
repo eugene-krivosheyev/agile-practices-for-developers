@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /dbo
 
+spring:
+  profiles:
+    active: prod
+
 ---
 
 spring:
