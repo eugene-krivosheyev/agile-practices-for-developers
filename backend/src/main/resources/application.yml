@@ -12,31 +12,22 @@ spring:
 spring:
   profiles: prod
   datasource:
-    platform: derby
-    driverClassName: org.apache.derby.jdbc.ClientDriver
-    url: jdbc:derby://localhost/db;create=true
+    driver-class-name: org.apache.derby.jdbc.ClientDriver
+    url: jdbc:derby://localhost/demo;create=true
     username: APP
     password: APP
   jpa:
-    show-sql: false
     hibernate:
       ddl-auto: validate
   liquibase:
     contexts: prod
-    enabled: true
-    change-log: classpath:/db/liquibase-changelog.groovy
-    user: APP
-    password: APP
-    liquibaseSchema: liquibase
-    rollback-file: liquibase-rollback.sql
-    test-rollback-on-update: true
+    enabled: false
 
 ---
 
 spring:
   profiles: it
   datasource:
-    platform: derby
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     url: jdbc:derby:target/db;create=true
     username: APP
@@ -48,7 +39,7 @@ spring:
   liquibase:
     contexts: it
     enabled: true
-    change-log: classpath:/db/liquibase-changelog-test.groovy
+    change-log: classpath:/db/test-changelog.xml
     rollback-file: target/liquibase-rollback-test.sql
     user: APP
     password: APP

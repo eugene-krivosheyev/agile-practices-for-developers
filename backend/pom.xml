@@ -120,6 +120,28 @@
 			</plugin>
 
 			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>copy-integration-test-resources-to-runtime</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/db</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/integrationTest/resources/db</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.0.0-M3</version>
@@ -141,6 +163,19 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<propertyFile>src/main/resources/db/liquibase.properties</propertyFile>
+					<changeLogFile>src/main/resources/db/changelog.xml</changeLogFile>
+					<verbose>true</verbose>
+					<logging>INFO</logging>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -246,7 +281,7 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.14.2.0</version>
+			<version>10.13.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -340,13 +375,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-groovy-dsl</artifactId>
 			<version>2.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
-			<version>10.14.1.0</version>
+			<version>10.13.1.1</version>
 		</dependency>
 	</dependencies>
 </project>
