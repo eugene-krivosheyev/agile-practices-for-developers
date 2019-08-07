@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.Collection;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PUBLIC;
 
+@ConditionalOnProperty(name = "features.client", havingValue = "true", matchIfMissing = true)
 @RestController
 @RequestMapping(value = "/api/client", headers = "X-API-VERSION=1")
 @FieldDefaults(level = PRIVATE, makeFinal = true)

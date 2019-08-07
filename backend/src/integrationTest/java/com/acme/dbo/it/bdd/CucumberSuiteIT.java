@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
         features = "classpath:/features",
         plugin = {"pretty", "html:target/reports/cucumber"},
         strict = false,
-        tags = "not @tag"
+        tags = "not @WIP"
 )
 public class CucumberSuiteIT {
 }
