@@ -8,7 +8,6 @@ server:
 spring:
   profiles: prod
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
     platform: derby
     driverClassName: org.apache.derby.jdbc.ClientDriver
     url: jdbc:derby://localhost/db;create=true
@@ -21,7 +20,7 @@ spring:
   liquibase:
     contexts: prod
     enabled: true
-    change-log: classpath:/db/liquibase-changelog.groovy
+    change-log: classpath:/db/liquibase-changelog-test.groovy
     user: APP
     password: APP
     liquibaseSchema: liquibase

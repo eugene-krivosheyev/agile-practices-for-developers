@@ -26,5 +26,5 @@
       <appender-ref ref="FILE" />
       <appender-ref ref="CONSOLE" />
   </root>
-  <logger name="liquibase" level="WARN" />
+  <logger name="liquibase" level="INFO" />
 </configuration>
