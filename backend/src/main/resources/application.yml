@@ -1,25 +1,25 @@
-server.port: 8080
+server:
+  port: 8080
+  servlet:
+    context-path: /dbo
+
+---
 
 spring:
-  jpa:
-    hibernate:
-      show-sql: no
-      ddl-auto: validate
-
+  profiles: prod
   datasource:
+    type: com.zaxxer.hikari.HikariDataSource
     platform: derby
-    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:target/db;create=true
+    driverClassName: org.apache.derby.jdbc.ClientDriver
+    url: jdbc:derby://localhost/db;create=true
     username: APP
     password: APP
-
-    hikari:
-      poolName: hikari-pool-prod
-      maximumPoolSize: 10
-      connectionTimeout: 60000
-      idleTimeout: 60000
-
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
   liquibase:
+    contexts: prod
     enabled: true
     change-log: classpath:/db/liquibase-changelog.groovy
     user: APP
@@ -28,3 +28,37 @@ spring:
     rollback-file: liquibase-rollback.sql
     test-rollback-on-update: true
 
+---
+
+spring:
+  profiles: it
+  datasource:
+    platform: derby
+    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:target/db;create=true
+    username: APP
+    password: APP
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    contexts: it
+    enabled: true
+    change-log: classpath:/db/liquibase-changelog-test.groovy
+    rollback-file: target/liquibase-rollback-test.sql
+    user: APP
+    password: APP
+    liquibaseSchema: liquibase
+    test-rollback-on-update: true
+
+---
+
+spring:
+  profiles: test
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    contexts: test
+    enabled: false

@@ -31,7 +31,7 @@ public class SeleniumIT {
         WebDriverManager.phantomjs().setup();
         WebDriver driver = new PhantomJSDriver();
 
-        driver.get("http://localhost:" + serverPort + "/swagger-ui.html");
+        driver.get("http://localhost:" + serverPort + "/dbo/swagger-ui.html");
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("base-url")));
         driver.findElement(By.xpath("//a[@href='#/account-controller']")).click();
