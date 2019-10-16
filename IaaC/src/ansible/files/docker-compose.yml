@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  git_hosting:
+    image: atlassian/bitbucket-server:6.7
+    container_name: git_hosting
+    volumes:
+      - bitbucket_volume:/var/atlassian/application-data/bitbucket
+    ports:
+      - "7990:7990"
+      - "7999:7999"
+
+  ci_server:
+    image: atlassian/bamboo-server:6.10.3
+    container_name: ci_server
+    volumes:
+      - bamboo_volume:/var/atlassian/application-data/bamboo
+    ports:
+      - "8085:8085"
+      - "54663:54663"
+
+  artifacts_server:
+    image: docker.bintray.io/jfrog/artifactory-oss:6.13.1
+    container_name: artifacts_server
+    volumes:
+      - artifactory_data:/var/opt/jfrog/artifactory
+    ports:
+      - "8081:8081"
+
+  sonar_server:
+    image: sonarqube:7.9.1-community
+    container_name: sonar_server
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+    ports:
+      - "9000:9000"
+#    command: sonarqube
+
+volumes:
+  bitbucket_volume:
+  bamboo_volume:
+  artifactory_data:
+  sonarqube_data:

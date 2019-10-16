@@ -1,21 +1,20 @@
 # Infrastructure-as-a-Сode
-Хосты и программные активы, реализованные на Ansible и Docker Compose.
+Хосты и программные активы конвейера CI, реализованные на Ansible и Docker Compose.
 
+# Как запустить и остановить докеризованные сервисы CI локально
+```bash
+docker-compose --file src/docker/docker-compose.yml up --detach
+docker-compose --file src/docker/docker-compose.yml down
+```
 
-# Smoke test for Ansible configuration
+# Smoke test for Ansible remote host provisioning 
 ```bash
 ansible -i src/ansible/hosts.yml -m shell -a 'uname -a' all
 ansible -i src/ansible/hosts.yml -m setup all
 ```
 
-# Как запустить процесс раскатки окружений
+# Как запустить процесс раскатки окружения локально
 ```bash
 ansible-galaxy install -r src/ansible/requirements.yml
 ansible-playbook -i src/ansible/hosts.yml src/ansible/inventory.yml [-vvv]
-```
-
-# Как запустить докеризованные сервисы CI
-```
-docker-compose --file src/docker/docker-compose.yml up --build --no-recreate --detach
-docker-compose --file src/docker/docker-compose.yml down
 ```
