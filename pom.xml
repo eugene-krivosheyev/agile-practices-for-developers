@@ -12,6 +12,19 @@
 		<version>2.1.4.RELEASE</version>
 	</parent>
 
+	<distributionManagement>
+		<repository>
+			<id>acme-artifacts-server</id>
+			<name>acme-releases</name>
+			<url><!-- TODO Set Artifacts Server repository URL --></url>
+		</repository>
+		<snapshotRepository>
+			<id>acme-artifacts-server</id>
+			<name>acme-snapshots</name>
+			<url><!-- TODO Set Artifacts Server repository URL --></url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<testResources>
 			<testResource>
@@ -138,10 +151,14 @@
 				<configuration>
 					<timestampedReports>false</timestampedReports>
 					<targetClasses>
-						<param>com.acme.*</param>
+						<param>com.acme.dbo.*</param>
 					</targetClasses>
+					<excludedClasses>
+						<class>com.acme.dbo.Application</class>
+						<class>com.acme.dbo.config.*</class>
+					</excludedClasses>
 					<targetTests>
-						<param>com.acme.dbo.unit.*</param>
+						<param>com.acme.dbo.*</param>
 					</targetTests>
 					<jvmArgs>
 						<arg>-Dderby.stream.error.file=log/derby.log</arg>
@@ -149,6 +166,8 @@
 					<withHistory>true</withHistory>
 					<avoidCallsTo>
 						<avoidCallsTo>org.slf4j</avoidCallsTo>
+						<avoidCallsTo>java.util.*</avoidCallsTo>
+						<avoidCallsTo>java.lang.*</avoidCallsTo>
 					</avoidCallsTo>
 					<skip>${skipTests}</skip>
 				</configuration>
