@@ -22,6 +22,12 @@
           - ansible_memtotal_mb >= 16000
           - ansible_processor_vcpus >= 4
 
+    - name: Install Maven
+      become: yes
+      apt:
+        name: maven
+        state: latest
+
     - name: Copy docker-compose file
       become: yes
       copy:
