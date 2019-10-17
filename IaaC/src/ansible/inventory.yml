@@ -10,12 +10,18 @@
       update_cache: yes
       cache_valid_time: 86400
 
-- hosts: ci_pipeline
+- hosts: ci_hosting
+  gather_facts: yes
   become: yes
   roles:
     - geerlingguy.docker
 
   tasks:
+    - assert:
+        that:
+          - ansible_memtotal_mb >= 16000
+          - ansible_processor_vcpus >= 4
+
     - name: Copy docker-compose file
       become: yes
       copy:
