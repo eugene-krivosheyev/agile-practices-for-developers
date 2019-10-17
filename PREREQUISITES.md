@@ -58,7 +58,7 @@ _Как поменять себя и процесс, чтобы втаскива
 - Wi-fi адаптер
 
 ### Software рабочих станций участников
-1. git client
+1. git
 1. JDK8
 1. IDEA (trial Ultimate)
 1. maven
@@ -67,10 +67,9 @@ _Как поменять себя и процесс, чтобы втаскива
 1. Ansible
 1. Docker
 
-### Доступы с рабочих станций участников к
-1. https://bitbucket.org:443 :80
-1. https://sonarcloud.io:443 :80 
-1. https://hub.docker.com:443 :80 
-1. http://ec2-35-158-162-238.eu-central-1.compute.amazonaws.com:80 :443 :8080 :8085 :9000
-1. http://ec2-3-121-98-71.eu-central-1.compute.amazonaws.com:8085 :80 :443 :8080 :9000
-1. http://ec2-35-156-72-179.eu-central-1.compute.amazonaws.com:80 :443 :8080 :22
+### Доступы с рабочих станций участников
+1. bitbucket.org :443 :80
+1. repo.maven.apache.org :443 :80
+1. hub.docker.com :443 :80
+1. docker.bintray.io :443 :80
+1. 84.201.134.115 :22 :443 :80 :8080 :7990 :8085 :8081 :9000
