@@ -13,7 +13,7 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: org.apache.derby.jdbc.ClientDriver
-    url: jdbc:derby://localhost/demo;create=true
+    url: jdbc:derby://localhost/dbo-db;create=true
     username: APP
     password: APP
   jpa:
@@ -29,7 +29,7 @@ spring:
   profiles: it
   datasource:
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:target/db;create=true
+    url: jdbc:derby:dbo-db;create=true
     username: APP
     password: APP
   jpa:
@@ -40,7 +40,7 @@ spring:
     contexts: it
     enabled: true
     change-log: classpath:/db/test-changelog.xml
-    rollback-file: target/liquibase-rollback-test.sql
+    rollback-file: liquibase-rollback-it.sql
     user: APP
     password: APP
     liquibaseSchema: liquibase

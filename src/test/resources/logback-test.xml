@@ -6,7 +6,7 @@
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>target/backend-test.log</file>
+    <file>log/dbo.log</file>
     <append>true</append>
     <immediateFlush>true</immediateFlush>
     <encoder>
