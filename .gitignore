@@ -5,3 +5,6 @@
 
 target/
 *.log
+
+dbo-db/
+liquibase-rollback-it.sql

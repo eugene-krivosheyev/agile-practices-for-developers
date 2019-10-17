@@ -28,9 +28,10 @@
 						<fileset>
 							<directory>${basedir}</directory>
 							<includes>
-								<include>log</include>
-								<include>dbo-db</include>
+								<include>log/</include>
+								<include>dbo-db/</include>
 								<include>liquibase-rollback-it.sql</include>
+								<include>derby.log</include>
 							</includes>
 						</fileset>
 					</filesets>
@@ -83,6 +84,9 @@
 						<exclude>**/*IT.java</exclude>
 						<exclude>**/*ST.java</exclude>
 					</excludes>
+					<systemPropertyVariables>
+						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 
@@ -107,6 +111,14 @@
 					<targetTests>
 						<param>com.acme.dbo.unit.*</param>
 					</targetTests>
+					<jvmArgs>
+						<arg>-Dderby.stream.error.file=log/derby.log</arg>
+					</jvmArgs>
+					<withHistory>true</withHistory>
+					<avoidCallsTo>
+						<avoidCallsTo>org.slf4j</avoidCallsTo>
+					</avoidCallsTo>
+					<skip>${skipTests}</skip>
 				</configuration>
 			</plugin>
 
@@ -170,6 +182,9 @@
 						<include>**/*IT.java</include>
 						<include>**/*ST.java</include>
 					</includes>
+					<systemPropertyVariables>
+						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
+					</systemPropertyVariables>
 				</configuration>
 				<executions>
 					<execution>
@@ -192,6 +207,9 @@
 					<verbose>true</verbose>
 					<logging>INFO</logging>
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					<systemProperties>
+						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
+					</systemProperties>
 				</configuration>
 			</plugin>
 		</plugins>
