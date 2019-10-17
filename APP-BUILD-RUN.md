@@ -12,4 +12,4 @@ java -jar target/dbo-1.0-SNAPSHOT.jar --spring.profiles.active=it
 ```
 
 # API Doc
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/dbo/swagger-ui.html
