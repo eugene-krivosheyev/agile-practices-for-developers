@@ -52,11 +52,15 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.3</version>
 				<configuration>
-					<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+					<skip>${skipTests}</skip>
+					<destFile>target/jacoco-reports/jacoco-ut.exec</destFile>
+					<dataFile>target/jacoco-reports/jacoco-ut.exec</dataFile>
+					<outputDirectory>target/jacoco-reports</outputDirectory>
 					<excludes>
 						<exclude>java/lang/*</exclude>
 						<exclude>java/util/*</exclude>
+						<exclude>com/acme/dbo/Application.class</exclude>
+						<exclude>com/acme/dbo/config/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
