@@ -6,7 +6,7 @@
         <server>
             <id>acme-artifacts-server</id>
             <username><!-- TODO Set Artifacts Server login --></username>
-            <password><!-- TODO Set Artifacts Server password --></password>
+            <password><!-- TODO Set Artifacts Server password --></password> <!-- To encrypt use https://maven.apache.org/guides/mini/guide-encryption.html -->
         </server>
     </servers>
 </settings>
