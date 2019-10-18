@@ -10,18 +10,12 @@ spring:
 ---
 
 spring:
-  profiles: prod
-  datasource:
-    driver-class-name: org.apache.derby.jdbc.ClientDriver
-    url: jdbc:derby://localhost/dbo-db;create=true
-    username: APP
-    password: APP
-  jpa:
-    hibernate:
-      ddl-auto: validate
-  liquibase:
-    contexts: prod
-    enabled: false
+  profiles: test
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
 
 ---
 
@@ -29,29 +23,72 @@ spring:
   profiles: it
   datasource:
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:dbo-db;create=true
+    url: jdbc:derby:memory:dbo-db;create=true
     username: APP
     password: APP
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
-  liquibase:
-    contexts: it
+  liquibase: #https://javadeveloperzone.com/spring-boot/spring-boot-liquibase-example/
     enabled: true
-    change-log: classpath:/db/test-changelog.xml
-    rollback-file: liquibase-rollback-it.sql
+    contexts: prod, qa
+    change-log: classpath:/db-changelog.xml
+    liquibaseSchema: liquibase
     user: APP
     password: APP
+
+---
+
+spring:
+  profiles: qa
+  datasource:
+    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:dbo-db;create=true
+    username: APP
+    password: APP
+    hikari:
+      poolName: hikari-connection-pool
+      maximumPoolSize: 2
+      minimumIdle: 2
+      idleTimeout: 600000
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    contexts: prod, qa
+    change-log: classpath:/db-changelog.xml
     liquibaseSchema: liquibase
+    user: APP
+    password: APP
+    rollback-file: liquibase-rollback.sql
     test-rollback-on-update: true
 
 ---
 
 spring:
-  profiles: test
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  profiles: prod
+  datasource:
+    driverClassName: org.apache.derby.jdbc.ClientDriver
+    url: jdbc:derby://localhost/dbo-db;create=true
+    username: APP
+    password: APP
+    hikari:
+      poolName: hikari-connection-pool
+      maximumPoolSize: 10
+      minimumIdle: 2
+      idleTimeout: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    contexts: prod
+    change-log: classpath:/db-changelog.xml
+    liquibaseSchema: liquibase
+    user: APP
+    password: APP
+    rollback-file: liquibase-rollback.sql
+    test-rollback-on-update: true

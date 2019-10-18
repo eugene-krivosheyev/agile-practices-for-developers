@@ -2,16 +2,16 @@
 ## Build with Maven and Run raw distr
 ```bash
 mvn clean verify
-java -Dderby.stream.error.file=log/derby.log -jar target/dbo-1.0-SNAPSHOT.jar --spring.profiles.active=it
+java -Dderby.stream.error.file=log/derby.log -jar target/dbo-1.0-SNAPSHOT.jar --spring.profiles.active=qa
 ```
+
+# API Doc
+http://localhost:8080/dbo/swagger-ui.html
 
 ## Deploy artifact to Artifact Server
 ```bash
 mvn deploy -s maven-settings.xml
 ```
-
-# API Doc
-http://localhost:8080/dbo/swagger-ui.html
 
 # Build and run Docker container for Application
 ```bash
