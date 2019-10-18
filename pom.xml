@@ -43,7 +43,7 @@
 							<includes>
 								<include>log/</include>
 								<include>dbo-db/</include>
-								<include>liquibase-rollback-it.sql</include>
+								<include>liquibase-rollback.sql</include>
 								<include>derby.log</include>
 							</includes>
 						</fileset>
