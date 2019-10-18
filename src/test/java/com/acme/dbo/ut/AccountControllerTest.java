@@ -1,23 +1,26 @@
-package com.acme.dbo.unit;
+package com.acme.dbo.ut;
 
+import com.acme.dbo.account.controller.AccountController;
 import com.acme.dbo.account.dao.AccountRepository;
 import com.acme.dbo.account.domain.Account;
+import com.acme.dbo.client.dao.ClientRepository;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.*;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.*;
 
-import java.util.Optional;
+import java.util.Collection;
 
+import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,13 +31,19 @@ import static org.mockito.Mockito.verify;
 @ActiveProfiles("test")
 @FieldDefaults(level = PRIVATE)
 @NoArgsConstructor
-public class ExampleTest {
-    @MockBean private AccountRepository accountRepository;
+public class AccountControllerTest {
+    @Autowired AccountController accountController;
+    @MockBean private AccountRepository accountRepositoryMock;
+    @MockBean private ClientRepository clientRepository;
+    @Mock private Account accountDummy;
 
     @Test
     public void exampleTest() {
-        given(accountRepository.findById(0L)).willReturn(Optional.of(new Account()));
-        assertThat("demo string").contains("demo");
-        verify(accountRepository, times(0)).findById(anyLong());
+        given(accountRepositoryMock.findAll()).willReturn(asList(accountDummy));
+
+        final Collection<Account> accounts = accountController.getAccounts();
+
+        assertThat(accounts).containsOnly(accountDummy);
+        verify(accountRepositoryMock, times(1)).findAll();
     }
 }

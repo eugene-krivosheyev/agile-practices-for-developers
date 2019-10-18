@@ -141,11 +141,30 @@
 			<version>1.4.9</version>
 				<executions>
 					<execution>
-						<id>pit-report</id>
+						<id>pit-report-ut</id>
 						<phase>test</phase>
 						<goals>
 							<goal>mutationCoverage</goal>
 						</goals>
+						<configuration>
+							<reportsDirectory>target/pit-reports-ut</reportsDirectory>
+							<targetTests>
+								<param>com.acme.dbo.ut.*</param>
+							</targetTests>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pit-report-it</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>mutationCoverage</goal>
+						</goals>
+						<configuration>
+							<reportsDirectory>target/pit-reports-it</reportsDirectory>
+							<targetTests>
+								<param>com.acme.dbo.it.*</param>
+							</targetTests>
+						</configuration>
 					</execution>
 				</executions>
 				<configuration>
@@ -157,9 +176,6 @@
 						<class>com.acme.dbo.Application</class>
 						<class>com.acme.dbo.config.*</class>
 					</excludedClasses>
-					<targetTests>
-						<param>com.acme.dbo.*</param>
-					</targetTests>
 					<jvmArgs>
 						<arg>-Dderby.stream.error.file=log/derby.log</arg>
 					</jvmArgs>
@@ -170,6 +186,11 @@
 						<avoidCallsTo>java.lang.*</avoidCallsTo>
 					</avoidCallsTo>
 					<skip>${skipTests}</skip>
+					<threads>4</threads>
+					<outputFormats>
+						<format>HTML</format>
+						<format>XML</format>
+					</outputFormats>
 				</configuration>
 			</plugin>
 
