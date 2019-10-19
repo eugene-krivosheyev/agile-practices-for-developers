@@ -32,6 +32,10 @@ spring:
     url: jdbc:derby:memory:dbo-db;create=true
     username: APP
     password: APP
+    hikari:
+      poolName: hikari-connection-pool
+      maximumPoolSize: 2
+      minimumIdle: 1
   jpa:
     show-sql: true
     hibernate:
@@ -55,8 +59,8 @@ spring:
     password: APP
     hikari:
       poolName: hikari-connection-pool
-      maximumPoolSize: 2
-      minimumIdle: 2
+      maximumPoolSize: 5
+      minimumIdle: 1
       idleTimeout: 600000
   jpa:
     show-sql: true

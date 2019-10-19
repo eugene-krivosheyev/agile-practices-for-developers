@@ -21,7 +21,7 @@ import static lombok.AccessLevel.PUBLIC;
 public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureJackson(ObjectMapper jackson2ObjectMapper) {
-        //nothing to do with mapper
+        //placeholder for future customizations
     }
 
     @Override
@@ -29,5 +29,4 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
         security.cors().disable().csrf().disable();
         security.httpBasic().disable();
     }
-
 }
