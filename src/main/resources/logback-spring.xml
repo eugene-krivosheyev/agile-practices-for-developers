@@ -1,0 +1,89 @@
+<configuration>
+  <springProfile name="test, it">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>ERROR</level>
+      </filter>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>log/dbo-test.log</file>
+      <append>false</append>
+      <immediateFlush>false</immediateFlush>
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>TRACE</level>
+      </filter>
+    </appender>
+
+    <root>
+      <appender-ref ref="CONSOLE" />
+      <appender-ref ref="FILE" />
+    </root>
+  </springProfile>
+
+
+  <springProfile name="qa">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>WARN</level>
+      </filter>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>log/dbo.log</file>
+      <append>true</append>
+      <immediateFlush>true</immediateFlush>
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>INFO</level>
+      </filter>
+    </appender>
+
+    <root>
+      <appender-ref ref="CONSOLE" />
+      <appender-ref ref="FILE" />
+    </root>
+  </springProfile>
+
+
+  <springProfile name="prod">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+    </appender>
+
+    <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>log/dbo.log</file>
+
+      <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+        <fileNamePattern>log/dbo-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+        <maxFileSize>10MB</maxFileSize>
+        <maxHistory>60</maxHistory> <!-- days -->
+        <totalSizeCap>1GB</totalSizeCap>
+      </rollingPolicy>
+
+      <append>true</append>
+      <immediateFlush>false</immediateFlush>
+      <encoder>
+        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+      </encoder>
+    </appender>
+
+    <root level="ERROR">
+      <appender-ref ref="CONSOLE" />
+      <appender-ref ref="ROLLING-FILE" />
+    </root>
+  </springProfile>
+</configuration>
