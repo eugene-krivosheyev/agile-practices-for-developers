@@ -147,7 +147,7 @@
 							<goal>mutationCoverage</goal>
 						</goals>
 						<configuration>
-							<reportsDirectory>target/pit-reports-ut</reportsDirectory>
+							<reportsDirectory>target/pit-reports/ut</reportsDirectory>
 							<targetTests>
 								<param>com.acme.dbo.ut.*</param>
 							</targetTests>
@@ -160,7 +160,7 @@
 							<goal>mutationCoverage</goal>
 						</goals>
 						<configuration>
-							<reportsDirectory>target/pit-reports-it</reportsDirectory>
+							<reportsDirectory>target/pit-reports/it</reportsDirectory>
 							<targetTests>
 								<param>com.acme.dbo.it.*</param>
 							</targetTests>
