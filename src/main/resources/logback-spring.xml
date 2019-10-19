@@ -11,7 +11,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>log/dbo-test.log</file>
-      <append>false</append>
+      <append>true</append>
       <immediateFlush>false</immediateFlush>
       <encoder>
         <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
