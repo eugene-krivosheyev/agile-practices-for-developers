@@ -28,24 +28,47 @@
         name: maven
         state: latest
 
-    - name: Copy docker-compose file
+    - name: Copy ci-docker-compose file
       become: yes
       copy:
-        src: docker-compose.yml
+        src: ci-docker-compose.yml
         dest: /var
 
-    - name: Shut down docker containers
+    - name: Copy elk-docker-compose file
       become: yes
-      command: docker-compose --file /var/docker-compose.yml down --timeout 60
-      register: shutdown_console
-
-    - debug: msg="{{ shutdown_console.stdout }}"
-    - debug: msg="{{ shutdown_console.stderr }}"
-
-    - name: Build and start up docker containers
+      copy:
+        src: elk-docker-compose.yml
+        dest: /var
+    - name: Copy logstash.conf file
       become: yes
-      command: docker-compose --file /var/docker-compose.yml up --detach
-      register: startup_console
+      copy:
+        src: logstash.conf
+        dest: /var
 
-    - debug: msg="{{ startup_console.stdout }}"
-    - debug: msg="{{ startup_console.stderr }}"
+    - name: Shut down CI docker containers
+      become: yes
+      command: docker-compose --file /var/ci-docker-compose.yml down --timeout 60
+      register: ci_shutdown_console
+    - debug: msg="{{ ci_shutdown_console.stdout }}"
+    - debug: msg="{{ ci_shutdown_console.stderr }}"
+
+    - name: Shut down ELK docker containers
+      become: yes
+      command: docker-compose --file /var/elk-docker-compose.yml down --timeout 60
+      register: elk_shutdown_console
+    - debug: msg="{{ elk_shutdown_console.stdout }}"
+    - debug: msg="{{ elk_shutdown_console.stderr }}"
+
+    - name: Build and start up CI docker containers
+      become: yes
+      command: docker-compose --file /var/ci-docker-compose.yml up --detach
+      register: ci_startup_console
+    - debug: msg="{{ ci_startup_console.stdout }}"
+    - debug: msg="{{ ci_startup_console.stderr }}"
+
+    - name: Build and start up ELK docker containers
+      become: yes
+      command: docker-compose --file /var/elk-docker-compose.yml up --detach
+      register: elk_startup_console
+    - debug: msg="{{ elk_startup_console.stdout }}"
+    - debug: msg="{{ elk_startup_console.stderr }}"

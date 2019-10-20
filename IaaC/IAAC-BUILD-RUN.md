@@ -1,11 +1,14 @@
 # Infrastructure-as-a-Сode
 Хосты и программные активы конвейера CI, реализованные на Ansible и Docker Compose.
 
-# Как запустить и остановить докеризованные сервисы CI локально
+# Как запустить и остановить докеризованные сервисы CI и ELK локально
 ```bash
 cd IaaC
-docker-compose --file src/docker/docker-compose.yml up --detach
-docker-compose --file src/docker/docker-compose.yml down
+docker-compose --file src/ansible/files/ci-docker-compose.yml up --detach
+docker-compose --file src/ansible/files/elk-docker-compose.yml up --detach
+
+docker-compose --file src/ansible/files/elk-docker-compose.yml down
+docker-compose --file src/ansible/files/ci-docker-compose.yml down
 ```
 
 # Smoke test for Ansible remote host provisioning 

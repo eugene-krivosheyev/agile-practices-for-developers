@@ -4,6 +4,8 @@ services:
     image: elasticsearch:7.4.0
     container_name: elasticsearch
     hostname: elasticsearch
+    volumes:
+      - elasticsearch_volume:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -12,20 +14,50 @@ services:
     restart: always
     environment:
       - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.4.0
     container_name: logstash
     hostname: logstash
     volumes:
-      - /var/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - logstash_volume:/usr/share/logstash/data
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
     ports:
+      - "9600:9600"
       - "5000:5000"
     networks:
       - elk_network
     restart: always
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - XPACK_MONITORING_ENABLED=false
+      - "LS_JAVA_OPTS=-Xmx2g -Xms2g"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    container_name: kibana
+    hostname: kibana
+    volumes:
+      - kibana_volume:/usr/share/kibana/data
+    ports:
+      - "5601:5601"
+    networks:
+      - elk_network
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - XPACK_MONITORING_ENABLED=false
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
 
 volumes:
+  elasticsearch_volume:
+  logstash_volume:
+  kibana_volume:
 
 networks:
   elk_network:
