@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    container_name: elasticsearch
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elk_network
+    restart: always
+    environment:
+      - discovery.type=single-node
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.4.0
+    container_name: logstash
+    hostname: logstash
+    volumes:
+      - /var/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5000:5000"
+    networks:
+      - elk_network
+    restart: always
+
+volumes:
+
+networks:
+  elk_network:
