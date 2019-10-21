@@ -51,7 +51,7 @@
     </appender>
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-      <destination>localhost:5000</destination> <!-- TODO Set Logstash host -->
+      <destination>84.201.134.115:5000</destination> <!-- TODO Set Logstash host -->
       <keepAliveDuration>15 minutes</keepAliveDuration>
       <writeTimeout>1 minute</writeTimeout>
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
