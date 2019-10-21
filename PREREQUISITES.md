@@ -72,4 +72,4 @@ _Как поменять себя и процесс, чтобы втаскива
 1. repo.maven.apache.org :443 :80
 1. hub.docker.com :443 :80
 1. docker.bintray.io :443 :80
-1. #TODO Set CI hosting hostname :22 :443 :80 :8080 :7990 :8085 :8081 :9000
+1. #TODO Set CI hosting hostname :22 :443 :80 :8080 :7990 :8085 :8081 :9000 :9200 :9300 :9600 :5000 :5601
