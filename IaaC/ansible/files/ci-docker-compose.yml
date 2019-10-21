@@ -13,8 +13,8 @@ services:
     restart: always
     environment:
       - ELASTICSEARCH_ENABLED=false
-      - JVM_MINIMUM_MEMORY=4g
-      - JVM_MAXIMUM_MEMORY=4g
+      - JVM_MINIMUM_MEMORY=1g
+      - JVM_MAXIMUM_MEMORY=1g
 
   ci_server:
     image: atlassian/bamboo-server:6.10.3
@@ -28,8 +28,8 @@ services:
       - ci_network
     restart: always
     environment:
-      - JVM_MINIMUM_MEMORY=4g
-      - JVM_MAXIMUM_MEMORY=4g
+      - JVM_MINIMUM_MEMORY=1g
+      - JVM_MAXIMUM_MEMORY=1g
 
   artifacts_server:
     image: docker.bintray.io/jfrog/artifactory-oss:6.13.1
@@ -42,7 +42,7 @@ services:
       - ci_network
     restart: always
     environment:
-      - EXTRA_JAVA_OPTIONS=-Xms2g -Xmx2g
+      - EXTRA_JAVA_OPTIONS=-Xms1g -Xmx1g
 
   sonar_server:
     image: sonarqube:7.9.1-community
