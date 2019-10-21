@@ -1,7 +1,7 @@
 # Build and Run
 ## Build with Maven and Run raw distr
 ```bash
-mvn clean verify
+mvn clean verify -Dlogback.configurationFile=logback.xml
 java -Dderby.stream.error.file=log/derby.log -jar target/dbo-1.0-SNAPSHOT.jar --spring.profiles.active=qa
 ```
 
