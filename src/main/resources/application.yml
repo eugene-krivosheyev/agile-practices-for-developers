@@ -81,10 +81,12 @@ spring:
 spring:
   profiles: prod
   datasource:
-    driverClassName: org.apache.derby.jdbc.ClientDriver
-    url: jdbc:derby://localhost/dbo-db;create=true
-    username: APP
-    password: APP
+    platform: postgres #In order to run schema-postgres.sql before Liquibase
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql:dbo_0 #TODO Set database name
+    username: dbo
+    password: P@ssw0rd
+    initialization-mode: always
     hikari:
       poolName: hikari-connection-pool
       maximumPoolSize: 10
@@ -98,7 +100,7 @@ spring:
     contexts: prod
     change-log: classpath:/db-changelog.xml
     liquibaseSchema: liquibase
-    user: APP
-    password: APP
+    user: dbo
+    password: P@ssw0rd
     rollback-file: liquibase-rollback.sql
     test-rollback-on-update: true

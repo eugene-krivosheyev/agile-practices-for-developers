@@ -26,6 +26,8 @@
 	</distributionManagement>
 
 	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName> <!-- TODO Set jar final name -->
+
 		<testResources>
 			<testResource>
 				<directory>src/integrationTest/resources</directory>
@@ -492,6 +494,11 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.8</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -13,15 +13,17 @@
 - hosts: ci_hosting
   gather_facts: yes
   become: yes
-  roles:
-    - geerlingguy.docker
 
-  tasks:
+  pre_tasks:
     - assert:
         that:
           - ansible_memtotal_mb >= 16000
           - ansible_processor_vcpus >= 4
 
+  roles:
+    - geerlingguy.docker
+
+  tasks:
     - name: Install Maven
       become: yes
       apt:
@@ -72,3 +74,64 @@
       register: elk_startup_console
     - debug: msg="{{ elk_startup_console.stdout }}"
     - debug: msg="{{ elk_startup_console.stderr }}"
+
+- hosts: pre_prod
+  gather_facts: yes
+  become: yes
+
+  pre_tasks:
+    - assert:
+        that:
+          - ansible_memtotal_mb >= 8000
+          - ansible_processor_vcpus >= 2
+
+  roles:
+    - role: lean_delivery.java
+      transport: repositories
+      java_package: jre
+      java_major_version: 8
+
+  vars:
+    db_user: dbo
+    databases:
+      - dbo_0
+      - dbo_1
+      - dbo_2
+      - dbo_3
+      - dbo_4
+      - dbo_5
+      - dbo_6
+      - dbo_7
+      - dbo_8
+      - dbo_9
+
+  tasks:
+    - name: Create dir for release application
+      file:
+        path: /dbo
+        state: directory
+        mode: 0777
+        recurse: yes
+
+    - name: Install Postgres and dependencies
+      apt: name={{item}}
+      with_items:
+        - postgresql
+        - postgresql-contrib
+        - libpq-dev
+        - python3-psycopg2
+
+    - name: Ensure the PostgreSQL service is running
+      service: name=postgresql state=started enabled=yes
+
+    - name: Create databases
+      become: true
+      become_user: postgres
+      postgresql_db: name={{item}} state=present
+      with_items: databases
+
+    - name: Create db user and grant access to databases
+      become: true
+      become_user: postgres
+      postgresql_user: db={{item}} name={{db_user}} priv=ALL state=present password=P@ssw0rd
+      with_items: databases

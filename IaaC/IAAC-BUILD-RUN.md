@@ -22,5 +22,5 @@ ansible -i ansible/hosts.yml -m setup all
 ```bash
 cd IaaC
 ansible-galaxy install -r ansible/requirements.yml
-ansible-playbook -i ansible/hosts.yml ansible/inventory.yml [-vvv]
+ansible-playbook -i ansible/hosts.yml ansible/inventory.yml [-vvv] [--start-at-task='Create databases']
 ```
