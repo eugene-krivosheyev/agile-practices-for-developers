@@ -22,10 +22,14 @@
 
   roles:
     - role: gantsign.maven
+      tags: ci
       maven_version: '3.6.2'
       maven_is_default_installation: yes
 
-    - geerlingguy.docker
+    - role: geerlingguy.docker
+      tags:
+      - ci
+      - elk
 
   tasks:
     - name: Copy ci-docker-compose file
@@ -41,6 +45,7 @@
       copy:
         src: elk-docker-compose.yml
         dest: /var
+
     - name: Copy logstash.conf file
       tags: elk
       become: yes
