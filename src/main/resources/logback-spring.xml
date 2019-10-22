@@ -55,7 +55,7 @@
       <keepAliveDuration>15 minutes</keepAliveDuration>
       <writeTimeout>1 minute</writeTimeout>
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        <customFields>{"appname":"dbo"}</customFields>
+        <customFields>{"appname":"dbo", "stage":"QA"}</customFields>
         <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
           <maxDepthPerThrowable>30</maxDepthPerThrowable>
           <maxLength>2048</maxLength>
@@ -103,9 +103,28 @@
       </encoder>
     </appender>
 
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+      <destination>84.201.134.115:5000</destination> <!-- TODO Set Logstash host -->
+      <keepAliveDuration>15 minutes</keepAliveDuration>
+      <writeTimeout>1 minute</writeTimeout>
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <customFields>{"appname":"dbo", "stage":"PROD"}</customFields>
+        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+          <maxDepthPerThrowable>30</maxDepthPerThrowable>
+          <maxLength>2048</maxLength>
+          <shortenedClassNameLength>20</shortenedClassNameLength>
+          <exclude>sun\.reflect\..*\.invoke.*</exclude>
+          <exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+          <rootCauseFirst>true</rootCauseFirst>
+          <inlineHash>true</inlineHash>
+        </throwableConverter>
+      </encoder>
+    </appender>
+
     <root level="ERROR">
       <appender-ref ref="CONSOLE" />
       <appender-ref ref="ROLLING-FILE" />
+      <appender-ref ref="LOGSTASH" />
     </root>
   </springProfile>
 </configuration>

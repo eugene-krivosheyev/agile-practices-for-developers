@@ -27,5 +27,5 @@ docker rm dbo -f
 # Run release remotely
 ```bash
 cd /dbo
-java -Dderby.stream.error.file=log/derby.log -jar dbo-1.0-SNAPSHOT.jar
+java -jar dbo-1.0-SNAPSHOT.jar
 ```

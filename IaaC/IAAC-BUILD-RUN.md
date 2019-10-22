@@ -4,6 +4,7 @@
 # Как запустить и остановить докеризованные сервисы CI и ELK локально
 ```bash
 cd IaaC
+
 docker-compose --file ansible/files/ci-docker-compose.yml up --detach
 docker-compose --file ansible/files/elk-docker-compose.yml up --detach
 
@@ -11,16 +12,39 @@ docker-compose --file ansible/files/elk-docker-compose.yml down
 docker-compose --file ansible/files/ci-docker-compose.yml down
 ```
 
-# Smoke test for Ansible remote host provisioning 
+# Развертывание инфраструктуры удаленно
+## Smoke test перед удаленной раскаткой 
 ```bash
 cd IaaC
 ansible -i ansible/hosts.yml -m shell -a 'uname -a' all
 ansible -i ansible/hosts.yml -m setup all
 ```
-
-# Как запустить процесс раскатки окружения удаленно
+## Установка завсисмостей Ansible
 ```bash
 cd IaaC
 ansible-galaxy install -r ansible/requirements.yml
-ansible-playbook -i ansible/hosts.yml ansible/inventory.yml [-vvv] [--start-at-task='Create databases']
+```
+
+## Раскатка сервисов CI/CD и ELK
+```bash
+cd IaaC
+ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting --tags "maven, ci" [--skip-tags "maven"] [--start-at-task='Shut down CI docker containers'] [--step] [-vvv] 
+```
+
+## Ручная настройка сервисов CI/CD
+[ ] [Лицензия и учетка Bitbucket](http://84.201.134.115:7990)
+[ ] [Лицензия и учетка Bamboo](http://84.201.134.115:8085)
+[ ] [Учетка Artifactory](http://84.201.134.115:8081)
+[ ] [Учетка SonarQube](http://84.201.134.115:9000)
+
+## Раскатка сервисов ELK
+```bash
+cd IaaC
+ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting --tags "elk"
+```
+
+## Раскатка сервисов на Pre-prod
+```bash
+cd IaaC
+ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 ```

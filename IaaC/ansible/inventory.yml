@@ -25,29 +25,34 @@
 
   tasks:
     - name: Install Maven
+      tags: maven
       become: yes
       apt:
         name: maven
         state: latest
 
     - name: Copy ci-docker-compose file
+      tags: ci
       become: yes
       copy:
         src: ci-docker-compose.yml
         dest: /var
 
     - name: Copy elk-docker-compose file
+      tags: elk
       become: yes
       copy:
         src: elk-docker-compose.yml
         dest: /var
     - name: Copy logstash.conf file
+      tags: elk
       become: yes
       copy:
         src: logstash.conf
         dest: /var
 
     - name: Shut down CI docker containers
+      tags: ci
       become: yes
       command: docker-compose --file /var/ci-docker-compose.yml down --timeout 60
       register: ci_shutdown_console
@@ -55,6 +60,7 @@
     - debug: msg="{{ ci_shutdown_console.stderr }}"
 
     - name: Shut down ELK docker containers
+      tags: elk
       become: yes
       command: docker-compose --file /var/elk-docker-compose.yml down --timeout 60
       register: elk_shutdown_console
@@ -62,6 +68,7 @@
     - debug: msg="{{ elk_shutdown_console.stderr }}"
 
     - name: Build and start up CI docker containers
+      tags: ci
       become: yes
       command: docker-compose --file /var/ci-docker-compose.yml up --detach
       register: ci_startup_console
@@ -69,11 +76,13 @@
     - debug: msg="{{ ci_startup_console.stderr }}"
 
     - name: Build and start up ELK docker containers
+      tags: elk
       become: yes
       command: docker-compose --file /var/elk-docker-compose.yml up --detach
       register: elk_startup_console
     - debug: msg="{{ elk_startup_console.stdout }}"
     - debug: msg="{{ elk_startup_console.stderr }}"
+
 
 - hosts: pre_prod
   gather_facts: yes
@@ -82,28 +91,30 @@
   pre_tasks:
     - assert:
         that:
-          - ansible_memtotal_mb >= 8000
+          - ansible_memtotal_mb >= 6000
           - ansible_processor_vcpus >= 2
 
   roles:
     - role: lean_delivery.java
+      tags: java
       transport: repositories
       java_package: jre
       java_major_version: 8
 
   vars:
     db_user: dbo
+    db_password: P@ssw0rd
     databases:
-      - dbo_0
-      - dbo_1
-      - dbo_2
-      - dbo_3
-      - dbo_4
-      - dbo_5
-      - dbo_6
-      - dbo_7
-      - dbo_8
-      - dbo_9
+      - name: dbo-db-0
+      - name: dbo-db-1
+      - name: dbo-db-2
+      - name: dbo-db-3
+      - name: dbo-db-4
+      - name: dbo-db-5
+      - name: dbo-db-6
+      - name: dbo-db-7
+      - name: dbo-db-8
+      - name: dbo-db-9
 
   tasks:
     - name: Create dir for release application
@@ -113,8 +124,56 @@
         mode: 0777
         recurse: yes
 
+
+    - name: Install Maven
+      tags:
+        - maven
+        - bamboo_agent
+      become: yes
+      apt:
+        name: maven
+        state: latest
+
+
+    - name: Create a directory for Bamboo Agent if it does not exist
+      tags: bamboo_agent
+      file:
+        path: /opt/bamboo_agent/bamboo_agent_home/bin
+        state: directory
+        mode: '0777'
+        recurse: yes
+
+    - name: Copy Bamboo Agent capabilities configuration file
+      copy:
+        src: bamboo-capabilities.properties
+        dest: /opt/bamboo_agent/bamboo_agent_home/bin/
+        mode: '0750'
+
+    - name: Waits for Bamboo CI Server is up in order to install Bamboo Agent
+      tags: bamboo_agent
+      wait_for:
+        host: "{{hostvars['ci_hosting'].ansible_host}}"
+        port: 8085
+        connect_timeout: 5
+        timeout: 300
+
+    - name: Download Bamboo Agent binary
+      tags: bamboo_agent
+      get_url:
+        url: "http://{{hostvars['ci_hosting'].ansible_host}}:8085/agentServer/agentInstaller/atlassian-bamboo-agent-installer-6.10.3.jar"
+        dest: /opt/bamboo_agent/
+        timeout: 30
+
+    - name: Install bamboo agent
+      tags: bamboo_agent
+      become: yes
+      command: "java -DDISABLE_AGENT_AUTO_CAPABILITY_DETECTION=false -Dbamboo.home=/opt/bamboo_agent/bamboo_agent_home -jar /opt/bamboo_agent/atlassian-bamboo-agent-installer-6.10.3.jar http://{{hostvars['ci_hosting'].ansible_host}}:8085/agentServer/"
+
+
     - name: Install Postgres and dependencies
-      apt: name={{item}}
+      tags: postgres
+      apt:
+        name: "{{item}}"
       with_items:
         - postgresql
         - postgresql-contrib
@@ -122,16 +181,29 @@
         - python3-psycopg2
 
     - name: Ensure the PostgreSQL service is running
-      service: name=postgresql state=started enabled=yes
+      tags: postgres
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
 
     - name: Create databases
+      tags: postgres
       become: true
       become_user: postgres
-      postgresql_db: name={{item}} state=present
-      with_items: databases
+      postgresql_db:
+        name: "{{item.name}}"
+        state: present
+      with_items: "{{databases}}"
 
     - name: Create db user and grant access to databases
+      tags: postgres
       become: true
       become_user: postgres
-      postgresql_user: db={{item}} name={{db_user}} priv=ALL state=present password=P@ssw0rd
-      with_items: databases
+      postgresql_user:
+        db: "{{item.name}}"
+        name: "{{db_user}}"
+        password: "{{db_password}}"
+        priv: ALL
+        state: present
+      with_items: "{{databases}}"
