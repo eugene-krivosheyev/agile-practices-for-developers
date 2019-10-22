@@ -38,31 +38,48 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ### [Bamboo](http://84.201.134.115:8085)
 - [ ] Лицензия
 - [ ] Учетка
-- [ ] Maven capability for local agent
+- [ ] Maven capability for local agent: Executable -> Maven 3.x -> /usr/share/maven
 - [ ] Agents -> Disable remote agent authentication
 - [ ] General Configuration -> Broker configuration
 ```
 Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
 Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
 ```
+- [ ] Restart Bamboo CI
 - [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
 - [ ] Учетка
-- [ ] Репошечка
+- [ ] Репошечка: dbo, Allow Content Browsing
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка
 - [ ] Плагины покрытия
 - [ ] Настройки плагинов покрытия
-
 
 ## Раскатка сервисов ELK
 ```bash
 cd IaaC
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting --tags "elk"
 ```
+- [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
 
 ## Раскатка сервисов на Pre-prod
 ```bash
 cd IaaC
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 ```
+
+## Ручное копирование приложения на пре-прод и запуск
+```bash
+cd ..
+mvn clean package -DskipTests -Dlogback.configurationFile=logback.xml
+scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/ 
+ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
+admin@pre-prod:~$ cd /dbo
+admin@pre-prod:~$ java -jar dbo-1.0-SNAPSHOT.jar
+```
+- [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client
+- [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client/1
+- [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
+- [ ] [Create index wizard](http://84.201.134.115:5601/app/kibana#/management/kibana/index_pattern?_g=())
+- [ ] [dbo index](http://84.201.134.115:5601/app/kibana#/discover?_g=())
+- [ ] [dbo stream](http://84.201.134.115:5601/app/infra#/logs/settings?_g=()), Log indices -> logstash*

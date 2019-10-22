@@ -96,6 +96,13 @@
           - ansible_memtotal_mb >= 6000
           - ansible_processor_vcpus >= 2
 
+    - name: Create dir for release application (ASAP for manual test deploy)
+      file:
+        path: /dbo
+        state: directory
+        mode: 0777
+        recurse: yes
+
     - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
       tags: bamboo_agent
       group:
@@ -155,14 +162,6 @@
       - name: dbo-db-9
 
   tasks:
-    - name: Create dir for release application
-      file:
-        path: /dbo
-        state: directory
-        mode: 0777
-        recurse: yes
-
-
     - name: Install Postgres and dependencies
       tags: postgres
       apt:

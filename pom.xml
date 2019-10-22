@@ -14,13 +14,13 @@
 
 	<distributionManagement>
 		<repository>
-			<id>acme-artifacts-server</id>
-			<name>acme-releases</name>
+			<id>dbo-artifacts-server</id>
+			<name>dbo-releases</name>
 			<url><!-- TODO Set Artifacts Server repository URL --></url>
 		</repository>
 		<snapshotRepository>
-			<id>acme-artifacts-server</id>
-			<name>acme-snapshots</name>
+			<id>dbo-artifacts-server</id>
+			<name>dbo-snapshots</name>
 			<url><!-- TODO Set Artifacts Server repository URL --></url>
 		</snapshotRepository>
 	</distributionManagement>
