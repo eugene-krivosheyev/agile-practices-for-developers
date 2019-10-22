@@ -10,7 +10,7 @@ http://localhost:8080/dbo/swagger-ui.html
 
 ## Deploy artifact to Artifact Server
 ```bash
-mvn deploy -s maven-settings.xml
+mvn deploy -s Iaac/ansible/files/maven-settings.xml
 ```
 
 # Build and run Docker container for Application

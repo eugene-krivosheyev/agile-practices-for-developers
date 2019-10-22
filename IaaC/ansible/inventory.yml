@@ -162,6 +162,17 @@
       - name: dbo-db-9
 
   tasks:
+    - name: Copy custom maven settings file to bamboo_agent home directory
+      tags:
+      - bamboo_agent
+      - maven
+      copy:
+        src: maven-settings.xml
+        dest: /home/bambooagent/.m2/settings.xml
+        owner: bambooagent
+        group: bambooagent
+        mode: '0775'
+
     - name: Install Postgres and dependencies
       tags: postgres
       apt:
