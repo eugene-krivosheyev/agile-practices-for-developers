@@ -16,12 +16,12 @@
 		<repository>
 			<id>dbo-artifacts-server</id>
 			<name>dbo-releases</name>
-			<url><!-- TODO Set Artifacts Server repository URL --></url>
+			<url><!-- TODO Set Artifacts Server repository URL from http://84.201.134.115:8081/artifactory/webapp/#/home -> dbo--></url>
 		</repository>
 		<snapshotRepository>
 			<id>dbo-artifacts-server</id>
 			<name>dbo-snapshots</name>
-			<url><!-- TODO Set Artifacts Server repository URL --></url>
+			<url><!-- TODO Set Artifacts Server repository URL from http://84.201.134.115:8081/artifactory/webapp/#/home -> dbo--></url>
 		</snapshotRepository>
 	</distributionManagement>
 

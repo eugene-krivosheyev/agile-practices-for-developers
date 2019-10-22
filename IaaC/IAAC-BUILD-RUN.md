@@ -75,7 +75,7 @@ mvn clean package -DskipTests -Dlogback.configurationFile=logback.xml
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/ 
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:~$ cd /dbo
-admin@pre-prod:~$ java -jar dbo-1.0-SNAPSHOT.jar &
+admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar dbo-1.0-SNAPSHOT.jar &
 ```
 - [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client
 - [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client/1
@@ -85,5 +85,7 @@ admin@pre-prod:~$ java -jar dbo-1.0-SNAPSHOT.jar &
 - [ ] [dbo stream](http://84.201.134.115:5601/app/infra#/logs/settings?_g=()), Log indices -> logstash*
 - [ ] Stream live
 ```bash
-admin@pre-prod: pkill -9 -f "java -jar dbo-1.0-SNAPSHOT.jar"
+admin@pre-prod: ps -af
+jvisualvm -> Add remote JMX connection 84.201.157.139:9999
+admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"
 ```
