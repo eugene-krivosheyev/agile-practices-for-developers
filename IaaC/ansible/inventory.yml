@@ -113,7 +113,7 @@
     - role: lean_delivery.java
       tags: java
       transport: repositories
-      java_package: jre
+      java_package: jdk # In order to able remote builds on this host
       java_major_version: 8
 
     - role: gantsign.maven
