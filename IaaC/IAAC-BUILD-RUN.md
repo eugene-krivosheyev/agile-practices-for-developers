@@ -32,10 +32,29 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ```
 
 ## Ручная настройка сервисов CI/CD
-[ ] [Лицензия и учетка Bitbucket](http://84.201.134.115:7990)
-[ ] [Лицензия и учетка Bamboo](http://84.201.134.115:8085)
-[ ] [Учетка Artifactory](http://84.201.134.115:8081)
-[ ] [Учетка SonarQube](http://84.201.134.115:9000)
+### [Bitbucket](http://84.201.134.115:7990)
+[ ] Лицензия
+[ ] Учетка
+[ ] Репошечка
+### [Bamboo](http://84.201.134.115:8085)
+[ ] Лицензия
+[ ] Учетка
+[ ] Maven capability for local agent
+[ ] Agents -> Disable remote agent authentication
+[ ] General Configuration -> Broker configuration
+```
+Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
+Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
+```
+[ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
+### [Artifactory](http://84.201.134.115:8081)
+[ ] Учетка
+[ ] Репошечка
+### [SonarQube](http://84.201.134.115:9000)
+[ ] Учетка
+[ ] Плагины покрытия
+[ ] Настройки плагинов покрытия
+
 
 ## Раскатка сервисов ELK
 ```bash

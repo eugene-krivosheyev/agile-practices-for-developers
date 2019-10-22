@@ -21,16 +21,13 @@
           - ansible_processor_vcpus >= 4
 
   roles:
+    - role: gantsign.maven
+      maven_version: '3.6.2'
+      maven_is_default_installation: yes
+
     - geerlingguy.docker
 
   tasks:
-    - name: Install Maven
-      tags: maven
-      become: yes
-      apt:
-        name: maven
-        state: latest
-
     - name: Copy ci-docker-compose file
       tags: ci
       become: yes
@@ -94,12 +91,48 @@
           - ansible_memtotal_mb >= 6000
           - ansible_processor_vcpus >= 2
 
+    - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
+      tags: bamboo_agent
+      group:
+        name: bambooagent
+        state: present
+
   roles:
     - role: lean_delivery.java
       tags: java
       transport: repositories
       java_package: jre
       java_major_version: 8
+
+    - role: gantsign.maven
+      tags: maven
+      maven_version: '3.6.2'
+      maven_is_default_installation: yes
+
+    - role: mimacom.bamboo-agent
+      tags: bamboo_agent
+      bamboo_agent_remote: true
+      bamboo_master_version: 6.10.3
+      bamboo_master_fqdn: "{{hostvars['ci_hosting'].ansible_host}}"
+      bamboo_master_https: false
+      bamboo_master_port: 8085
+      bamboo_agent_user: bambooagent
+      bamboo_agent_uid: 5000
+      bamboo_agent_jvm_memory: 512m
+      install_jdk: false
+      bamboo_agent_capabilities:
+        - name: jre8
+          binary_path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+          symlinks: []
+          properties:
+            - key: system.jdk.JDK\ 1.8
+              value: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+        - name: mvn3
+          binary_path: /opt/maven/apache-maven-3.6.2/bin/mvn
+          symlinks: []
+          properties:
+            - key: system.builder.mvn3.Maven\ 3.5
+              value: /opt/maven/apache-maven-3.6.2/bin/mvn
 
   vars:
     db_user: dbo
@@ -123,51 +156,6 @@
         state: directory
         mode: 0777
         recurse: yes
-
-
-    - name: Install Maven
-      tags:
-        - maven
-        - bamboo_agent
-      become: yes
-      apt:
-        name: maven
-        state: latest
-
-
-    - name: Create a directory for Bamboo Agent if it does not exist
-      tags: bamboo_agent
-      file:
-        path: /opt/bamboo_agent/bamboo_agent_home/bin
-        state: directory
-        mode: '0777'
-        recurse: yes
-
-    - name: Copy Bamboo Agent capabilities configuration file
-      copy:
-        src: bamboo-capabilities.properties
-        dest: /opt/bamboo_agent/bamboo_agent_home/bin/
-        mode: '0750'
-
-    - name: Waits for Bamboo CI Server is up in order to install Bamboo Agent
-      tags: bamboo_agent
-      wait_for:
-        host: "{{hostvars['ci_hosting'].ansible_host}}"
-        port: 8085
-        connect_timeout: 5
-        timeout: 300
-
-    - name: Download Bamboo Agent binary
-      tags: bamboo_agent
-      get_url:
-        url: "http://{{hostvars['ci_hosting'].ansible_host}}:8085/agentServer/agentInstaller/atlassian-bamboo-agent-installer-6.10.3.jar"
-        dest: /opt/bamboo_agent/
-        timeout: 30
-
-    - name: Install bamboo agent
-      tags: bamboo_agent
-      become: yes
-      command: "java -DDISABLE_AGENT_AUTO_CAPABILITY_DETECTION=false -Dbamboo.home=/opt/bamboo_agent/bamboo_agent_home -jar /opt/bamboo_agent/atlassian-bamboo-agent-installer-6.10.3.jar http://{{hostvars['ci_hosting'].ansible_host}}:8085/agentServer/"
 
 
     - name: Install Postgres and dependencies
