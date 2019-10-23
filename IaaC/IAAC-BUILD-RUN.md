@@ -71,7 +71,7 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 ## Ручное копирование приложения на пре-прод и запуск
 ```bash
 cd ..
-mvn clean package -DskipTests -Dlogback.configurationFile=logback.xml
+mvn -T 1C package -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/ 
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:~$ cd /dbo

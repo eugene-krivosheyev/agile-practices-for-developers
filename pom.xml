@@ -135,8 +135,19 @@
 					<systemPropertyVariables>
 						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
 					</systemPropertyVariables>
-					<parallel>both</parallel>
-					<threadCount>2</threadCount>
+					<parallel>methods</parallel>
+					<threadCount>4</threadCount>
+					<reuseForks>true</reuseForks>
+					<properties>
+						<configurationParameters>
+							junit.jupiter.execution.parallel.enabled = true
+							junit.jupiter.execution.parallel.config.strategy = fixed
+							junit.jupiter.execution.parallel.config.fixed.parallelism = 4
+							junit.jupiter.execution.parallel.mode.default = concurrent
+							junit.jupiter.execution.parallel.mode.classes.default = concurrent
+						</configurationParameters>
+					</properties>
+					<reportsDirectory>target/surefire-reports/fork-${surefire.forkNumber}</reportsDirectory>
 				</configuration>
 			</plugin>
 
@@ -180,25 +191,30 @@
 					</execution>
 				</executions>
 				<configuration>
-					<timestampedReports>false</timestampedReports>
 					<targetClasses>
 						<param>com.acme.dbo.*</param>
 					</targetClasses>
 					<excludedClasses>
 						<class>com.acme.dbo.Application</class>
 						<class>com.acme.dbo.config.*</class>
+						<class>com.google.*</class>
+						<class>org.apache.*</class>
+						<class>org.springframework.*</class>
 					</excludedClasses>
+					<timestampedReports>false</timestampedReports>
+					<threads>4</threads>
 					<jvmArgs>
 						<arg>-Dderby.stream.error.file=log/derby.log</arg>
 					</jvmArgs>
 					<withHistory>true</withHistory>
+					<historyOutputFile>target/pit.history</historyOutputFile>
+					<historyInputFile>target/pit.history</historyInputFile>
 					<avoidCallsTo>
 						<avoidCallsTo>org.slf4j</avoidCallsTo>
 						<avoidCallsTo>java.util.*</avoidCallsTo>
 						<avoidCallsTo>java.lang.*</avoidCallsTo>
 					</avoidCallsTo>
 					<skip>${skipTests}</skip>
-					<threads>2</threads>
 					<outputFormats>
 						<format>HTML</format>
 						<format>XML</format>
@@ -259,6 +275,10 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
+					<forkCount>4</forkCount>
+					<reuseForks>true</reuseForks>
+					<parallel>methods</parallel>
+					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
 					<additionalClasspathElements>
 						<additionalClasspathElement>src/integrationTest/resources</additionalClasspathElement>
 					</additionalClasspathElements>
@@ -270,6 +290,7 @@
 						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
 					</systemPropertyVariables>
 					<argLine>${failsafeArgs}</argLine>
+					<reportsDirectory>target/failsafe-reports</reportsDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
