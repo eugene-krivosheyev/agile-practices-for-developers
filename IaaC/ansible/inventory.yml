@@ -1,6 +1,7 @@
 - hosts: all
   gather_facts: no
   become: yes
+
   tasks:
   - name: "Prepare apt cache"
     ignore_errors: yes
@@ -9,6 +10,7 @@
       autoclean: yes
       update_cache: yes
       cache_valid_time: 86400
+
 
 - hosts: ci_hosting
   gather_facts: yes
@@ -21,11 +23,6 @@
           - ansible_processor_vcpus >= 4
 
   roles:
-    - role: gantsign.maven
-      tags: ci
-      maven_version: '3.6.2'
-      maven_is_default_installation: yes
-
     - role: geerlingguy.docker
       tags:
       - ci
@@ -86,6 +83,72 @@
     - debug: msg="{{ elk_startup_console.stderr }}"
 
 
+- hosts: ci_agent
+  gather_facts: yes
+  become: yes
+
+  pre_tasks:
+    - assert:
+        that:
+          - ansible_memtotal_mb >= 2000
+          - ansible_processor_vcpus >= 1
+
+    - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
+      tags: bamboo_agent
+      group:
+        name: bambooagent
+        state: present
+
+  roles:
+    - role: lean_delivery.java
+      tags: java
+      transport: repositories
+      java_package: jdk
+      java_major_version: 8
+
+    - role: gantsign.maven
+      tags: maven
+      maven_version: '3.6.2'
+      maven_is_default_installation: yes
+
+    - role: mimacom.bamboo-agent
+      tags: bamboo_agent
+      bamboo_agent_remote: true
+      bamboo_master_version: 6.10.3
+      bamboo_master_fqdn: "{{hostvars['ci_hosting'].ansible_host}}"
+      bamboo_master_https: false
+      bamboo_master_port: 8085
+      bamboo_agent_user: bambooagent
+      bamboo_agent_uid: 5000
+      bamboo_agent_jvm_memory: 1024m
+      install_jdk: false
+      bamboo_agent_capabilities:
+        - name: jre8
+          binary_path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+          symlinks: []
+          properties:
+            - key: system.jdk.JDK\ 1.8
+              value: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+        - name: mvn3
+          binary_path: /opt/maven/apache-maven-3.6.2/bin/mvn
+          symlinks: []
+          properties:
+            - key: system.builder.mvn3.Maven\ 3
+              value: /opt/maven/apache-maven-3.6.2/bin/mvn
+
+  tasks:
+    - name: Copy custom maven settings file to bamboo_agent home directory
+      tags:
+        - bamboo_agent
+        - maven
+      copy:
+        src: maven-settings.xml
+        dest: /home/bambooagent/.m2/settings.xml
+        owner: bambooagent
+        group: bambooagent
+        mode: '0775'
+
+
 - hosts: pre_prod
   gather_facts: yes
   become: yes
@@ -113,7 +176,7 @@
     - role: lean_delivery.java
       tags: java
       transport: repositories
-      java_package: jdk # In order to able remote builds on this host
+      java_package: jre
       java_major_version: 8
 
     - role: gantsign.maven
@@ -130,7 +193,7 @@
       bamboo_master_port: 8085
       bamboo_agent_user: bambooagent
       bamboo_agent_uid: 5000
-      bamboo_agent_jvm_memory: 512m
+      bamboo_agent_jvm_memory: 256m
       install_jdk: false
       bamboo_agent_capabilities:
         - name: jre8
@@ -143,7 +206,7 @@
           binary_path: /opt/maven/apache-maven-3.6.2/bin/mvn
           symlinks: []
           properties:
-            - key: system.builder.mvn3.Maven\ 3.5
+            - key: system.builder.mvn3.Maven\ 3
               value: /opt/maven/apache-maven-3.6.2/bin/mvn
 
   vars:
