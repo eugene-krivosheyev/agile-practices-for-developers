@@ -90,8 +90,11 @@ ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:~$ cd /dbo
 admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar dbo-1.0-SNAPSHOT.jar &
 ```
-- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client
-- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client/11
+- [ ] Test Restful WebService: 
+```bash
+curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client
+curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client/11
+```
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
 - [ ] [Create Index Pattern wizard](http://84.201.134.115:5601/app/kibana#/management/kibana/index_pattern?_g=())
 - [ ] [dbo index](http://84.201.134.115:5601/app/kibana#/discover?_g=())

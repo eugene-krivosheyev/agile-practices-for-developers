@@ -5,6 +5,7 @@
 
 target/
 *.log
+nohup.out
 
 dbo-db/
 liquibase-rollback.sql
