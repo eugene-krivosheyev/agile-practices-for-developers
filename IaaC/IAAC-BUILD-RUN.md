@@ -91,7 +91,7 @@ admin@pre-prod:~$ cd /dbo
 admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar dbo-1.0-SNAPSHOT.jar &
 ```
 - [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client
-- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client/1
+- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client/11
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
 - [ ] [Create Index Pattern wizard](http://84.201.134.115:5601/app/kibana#/management/kibana/index_pattern?_g=())
 - [ ] [dbo index](http://84.201.134.115:5601/app/kibana#/discover?_g=())
@@ -100,5 +100,6 @@ admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management
 ```bash
 admin@pre-prod: ps -af
 jvisualvm -> Add remote JMX connection 84.201.157.139:9999
-admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"
+curl --request POST http://84.201.157.139:8080/dbo/actuator/shutdown
+[admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"]
 ```

@@ -29,3 +29,8 @@ docker rm dbo -f
 cd /dbo
 java -jar dbo-1.0-SNAPSHOT.jar
 ```
+
+# Graceful shutdown
+```
+curl --request POST http://localhost:8080/dbo/actuator/shutdown
+```
