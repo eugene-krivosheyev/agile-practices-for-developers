@@ -96,7 +96,7 @@ spring:
   datasource:
     platform: postgres #In order to run schema-postgres.sql before Liquibase
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql:dbo-db-0 #TODO Set database name
+    url: jdbc:postgresql:dbo-db
     username: dbo
     password: P@ssw0rd
     initialization-mode: always

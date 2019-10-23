@@ -107,3 +107,11 @@ jvisualvm -> Add remote JMX connection 84.201.157.139:9999
 curl --request POST http://84.201.157.139:8080/dbo/actuator/shutdown
 [admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"]
 ```
+
+## Запуск приложения как сервиса
+```bash
+[admin@pre-prod:/$ [/bin/sh -c '] sudo update-rc.d dbo-app defaults]
+admin@pre-prod:/$ [/bin/sh -c '] sudo service dbo-app restart
+admin@pre-prod:/$ sudo service dbo-app status
+admin@pre-prod:/$ systemctl status dbo-app.service
+```

@@ -144,7 +144,7 @@
         dest: /home/bambooagent/.m2/settings.xml
         owner: bambooagent
         group: bambooagent
-        mode: '0530'
+        mode: '530'
 
 
 - hosts: pre_prod
@@ -197,30 +197,16 @@
           properties:
             - key: system.builder.mvn3.Maven\ 3.6
               value: /opt/maven/apache-maven-3.6.2
-        - name: service-restarter
-          symlinks: []
-          properties:
-            - key: system.service-restarter.executable
-              value: sudo service dbo-app restart
 
   vars:
+    database: dbo-db
     db_user: dbo
     db_password: P@ssw0rd
-    databases:
-      - name: dbo-db-0
-      - name: dbo-db-1
-      - name: dbo-db-2
-      - name: dbo-db-3
-      - name: dbo-db-4
-      - name: dbo-db-5
-      - name: dbo-db-6
-      - name: dbo-db-7
-      - name: dbo-db-8
-      - name: dbo-db-9
 
   tasks:
     - name: Create user 'dboadmin'
       tags: distr
+      become: yes
       user:
         comment: OS user to deploy and run dbo application
         name: dboadmin
@@ -228,37 +214,59 @@
 
     - name: Create dir for application distr
       tags: distr
+      become: yes
+      become_user: dboadmin
       file:
-        path: /dbo
+        path: /home/dboadmin/dbo
         state: directory
-        owner: dboadmin
-        group: admin
-        mode: u=rw,g=rw,o=
         recurse: yes
+        mode: '0775'
 
-    - name: Add 'bambooagent' user to 'admin' group in order to manage distr
+    - name: Copy service restart script
+      tags: distr
+      become: yes
+      copy:
+        src: restart-dbo-service.sh
+        dest: /home/dboadmin/dbo/
+        mode: '0755'
+
+    - name: Copy SUDOers script
+      tags: distr
+      become: yes
+      copy:
+        src: bambooagent
+        dest: /etc/sudoers.d/
+        mode: '0440'
+
+    - name: Create placehlder for application distr in order to make link for daemon system
+      tags: distr
+      become: yes
+      become_user: dboadmin
+      file:
+        path: /home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar
+        state: touch
+        mode: '0775'
+
+    - name: Copy daemon script
+      tags: distr
+      become: yes
+      copy:
+        src: dbo-app
+        dest: /etc/init.d/dbo-app
+        mode: '0755'
+
+    - name: Update init.d system
+      tags: distr
+      become: yes
+      command: update-rc.d dbo-app defaults
+
+    - name: Add 'bambooagent' user to 'admin' group in order to manage distr artifact
       tags: bamboo_agent
+      become: yes
       user:
         name: bambooagent
         groups: admin
         append: yes
-
-    - name: Create placehlder for application distr in order to make link for daemon system
-      tags: distr
-      file:
-        path: /dbo/dbo-1.0-SNAPSHOT.jar
-        state: touch
-        owner: dboadmin
-        group: admin
-        mode: u=rw,g=rw,o=
-
-    - name: Create a symbolic link for application distr for daemon system
-      tags: distr
-      become: yes
-      file:
-        src: /dbo/dbo-1.0-SNAPSHOT.jar
-        dest: /etc/init.d/dbo-app
-        state: link
 
     - name: Copy custom maven settings file to bamboo_agent home directory
       tags: bamboo_agent
@@ -267,7 +275,7 @@
         dest: /home/bambooagent/.m2/settings.xml
         owner: bambooagent
         group: bambooagent
-        mode: '0530'
+        mode: '0755'
 
     - name: Install Postgres and dependencies
       tags: postgres
@@ -286,23 +294,21 @@
         state: started
         enabled: yes
 
-    - name: Create databases
+    - name: Create database
       tags: postgres
       become: true
       become_user: postgres
       postgresql_db:
-        name: "{{item.name}}"
+        name: "{{database}}"
         state: present
-      with_items: "{{databases}}"
 
-    - name: Create db user and grant access to databases
+    - name: Create db user and grant access to database
       tags: postgres
       become: true
       become_user: postgres
       postgresql_user:
-        db: "{{item.name}}"
+        db: "{{database}}"
         name: "{{db_user}}"
         password: "{{db_password}}"
         priv: ALL
         state: present
-      with_items: "{{databases}}"
