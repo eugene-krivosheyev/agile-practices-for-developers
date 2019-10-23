@@ -124,13 +124,11 @@
       install_jdk: false
       bamboo_agent_capabilities:
         - name: jdk8
-          binary_path: /usr/lib/jvm/java-8-openjdk-amd64
           symlinks: []
           properties:
             - key: system.jdk.JDK\ 1.8
               value: /usr/lib/jvm/java-8-openjdk-amd64
         - name: mvn3
-          binary_path: /opt/maven/apache-maven-3.6.2
           symlinks: []
           properties:
             - key: system.builder.mvn3.Maven\ 3.6
@@ -189,8 +187,12 @@
       bamboo_agent_jvm_memory: 1024m
       install_jdk: false
       bamboo_agent_capabilities:
+        - name: jre8
+          symlinks: []
+          properties:
+            - key: JRE\ 1.8
+              value: /usr/lib/jvm/java-8-openjdk-amd64/jre
         - name: mvn3
-          binary_path: /opt/maven/apache-maven-3.6.2
           symlinks: []
           properties:
             - key: system.builder.mvn3.Maven\ 3.6
