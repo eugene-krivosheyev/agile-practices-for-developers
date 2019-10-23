@@ -42,12 +42,12 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 - [ ] Remove unused capabilities
 - [ ] Agents -> Disable remote agent authentication
 - [ ] Maven capability for remote agents: Executable -> Maven 3.x -> Maven 3.6 -> /opt/maven/apache-maven-3.6.2
-- [ ] General Configuration -> Broker configuration
+- [ ] General Configuration -> Broker configuration:
 ```
 Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
 Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
 ```
-- [ ] [Sonar for Bamboo](https://marketplace.atlassian.com/apps/1212756/sonar-for-bamboo) Plugin
+- [ ] [Sonar for Bamboo](http://84.201.134.115:8085/plugins/servlet/upm/marketplace/featured?source=side_nav_find_new_addons) Plugin
 - [ ] Restart Bamboo CI
 - [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
@@ -66,14 +66,14 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ```
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
 
-## Раскатка сервисов на сборочный агент
+## Раскатка сервисов на сборочный агент ci_agent
 - [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
 ```bash
 cd IaaC
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_agent
 ```
 
-## Раскатка сервисов на Pre-prod
+## Раскатка сервисов на pre_prod
 - [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
 ```bash
 cd IaaC

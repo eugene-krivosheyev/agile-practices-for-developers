@@ -146,7 +146,7 @@
         dest: /home/bambooagent/.m2/settings.xml
         owner: bambooagent
         group: bambooagent
-        mode: '0775'
+        mode: '0530'
 
 
 - hosts: pre_prod
@@ -158,13 +158,6 @@
         that:
           - ansible_memtotal_mb >= 6000
           - ansible_processor_vcpus >= 2
-
-    - name: Create dir for release application (ASAP for manual test deploy)
-      file:
-        path: /dbo
-        state: directory
-        mode: 0777
-        recurse: yes
 
     - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
       tags: bamboo_agent
@@ -202,6 +195,11 @@
           properties:
             - key: system.builder.mvn3.Maven\ 3.6
               value: /opt/maven/apache-maven-3.6.2
+        - name: service-restarter
+          symlinks: []
+          properties:
+            - key: system.service-restarter.executable
+              value: sudo service dbo-app restart
 
   vars:
     db_user: dbo
@@ -219,16 +217,55 @@
       - name: dbo-db-9
 
   tasks:
+    - name: Create user 'dboadmin'
+      tags: distr
+      user:
+        comment: OS user to deploy and run dbo application
+        name: dboadmin
+        group: admin
+
+    - name: Create dir for application distr
+      tags: distr
+      file:
+        path: /dbo
+        state: directory
+        owner: dboadmin
+        group: admin
+        mode: u=rw,g=rw,o=
+        recurse: yes
+
+    - name: Add 'bambooagent' user to 'admin' group in order to manage distr
+      tags: bamboo_agent
+      user:
+        name: bambooagent
+        groups: admin
+        append: yes
+
+    - name: Create placehlder for application distr in order to make link for daemon system
+      tags: distr
+      file:
+        path: /dbo/dbo-1.0-SNAPSHOT.jar
+        state: touch
+        owner: dboadmin
+        group: admin
+        mode: u=rw,g=rw,o=
+
+    - name: Create a symbolic link for application distr for daemon system
+      tags: distr
+      become: yes
+      file:
+        src: /dbo/dbo-1.0-SNAPSHOT.jar
+        dest: /etc/init.d/dbo-app
+        state: link
+
     - name: Copy custom maven settings file to bamboo_agent home directory
-      tags:
-      - bamboo_agent
-      - maven
+      tags: bamboo_agent
       copy:
         src: maven-settings.xml
         dest: /home/bambooagent/.m2/settings.xml
         owner: bambooagent
         group: bambooagent
-        mode: '0775'
+        mode: '0530'
 
     - name: Install Postgres and dependencies
       tags: postgres
