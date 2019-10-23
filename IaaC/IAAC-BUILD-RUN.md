@@ -47,7 +47,7 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
 Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
 ```
-- [ ] Sonar Plugin
+- [ ] [Sonar for Bamboo](https://marketplace.atlassian.com/apps/1212756/sonar-for-bamboo) Plugin
 - [ ] Restart Bamboo CI
 - [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
