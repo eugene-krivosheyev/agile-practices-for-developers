@@ -144,7 +144,7 @@
         dest: /home/bambooagent/.m2/settings.xml
         owner: bambooagent
         group: bambooagent
-        mode: '530'
+        mode: '0664'
 
 
 - hosts: pre_prod
@@ -228,7 +228,7 @@
       copy:
         src: bambooagent
         dest: /etc/sudoers.d/
-        mode: '0440'
+        mode: '0440' #Requirement
 
     - name: Create placehlder for application distr in order to make link for daemon system
       tags: distr
