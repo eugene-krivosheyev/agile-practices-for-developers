@@ -190,7 +190,7 @@
         - name: jre8
           symlinks: []
           properties:
-            - key: JRE\ 1.8
+            - key: JRE 1.8
               value: /usr/lib/jvm/java-8-openjdk-amd64/jre
         - name: mvn3
           symlinks: []
@@ -221,14 +221,6 @@
         state: directory
         recurse: yes
         mode: '0775'
-
-    - name: Copy service restart script
-      tags: distr
-      become: yes
-      copy:
-        src: restart-dbo-service.sh
-        dest: /home/dboadmin/dbo/
-        mode: '0755'
 
     - name: Copy SUDOers script
       tags: distr

@@ -1,1 +1,1 @@
-bambooagent ALL=NOPASSWD: /home/dboadmin/dbo/restart-dbo-service.sh
+bambooagent ALL=NOPASSWD: /usr/sbin/service dbo-app restart
