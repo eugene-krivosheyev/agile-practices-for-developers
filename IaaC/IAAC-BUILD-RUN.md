@@ -38,9 +38,10 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ### [Bamboo](http://84.201.134.115:8085)
 - [ ] Лицензия
 - [ ] Учетка
-- [ ] Maven capability for local agent: Executable -> Maven 3.x -> Maven 3.6 -> /opt/maven/apache-maven-3.6.2
+- [ ] Disable Default Agent
 - [ ] Remove unused capabilities
 - [ ] Agents -> Disable remote agent authentication
+- [ ] Maven capability for remote agents: Executable -> Maven 3.x -> Maven 3.6 -> /opt/maven/apache-maven-3.6.2
 - [ ] General Configuration -> Broker configuration
 ```
 Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
