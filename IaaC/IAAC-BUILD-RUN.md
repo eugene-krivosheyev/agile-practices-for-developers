@@ -38,18 +38,21 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ### [Bamboo](http://84.201.134.115:8085)
 - [ ] Лицензия
 - [ ] Учетка
-- [ ] Maven capability for local agent: Executable -> Maven 3.x -> /usr/share/maven
+- [ ] Maven capability for local agent: Executable -> Maven 3.x -> Maven 3.6 -> /opt/maven/apache-maven-3.6.2
+- [ ] Remove unused capabilities
 - [ ] Agents -> Disable remote agent authentication
 - [ ] General Configuration -> Broker configuration
 ```
 Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
 Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
 ```
+- [ ] Sonar Plugin
 - [ ] Restart Bamboo CI
 - [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
 - [ ] Учетка
 - [ ] Репошечка: dbo, Allow Content Browsing
+- [ ] Обновить данные в IaaC/ansible/files/maven-settings.xml
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка
 - [ ] Плагины покрытия
@@ -62,7 +65,15 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ```
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
 
+## Раскатка сервисов на сборочный агент
+- [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
+```bash
+cd IaaC
+ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_agent
+```
+
 ## Раскатка сервисов на Pre-prod
+- [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
 ```bash
 cd IaaC
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
@@ -73,14 +84,15 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 cd ..
 ./mvnw -T 1C package -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/ 
+[ssh-keygen -R 84.201.157.139]
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:~$ cd /dbo
 admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar dbo-1.0-SNAPSHOT.jar &
 ```
-- [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client
-- [ ] Test Restful WebService with header X-API-VERSION=1: GET http://84.201.157.139:8080/dbo/api/client/1
+- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client
+- [ ] Test Restful WebService: curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/dbo/api/client/1
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
-- [ ] [Create index wizard](http://84.201.134.115:5601/app/kibana#/management/kibana/index_pattern?_g=())
+- [ ] [Create Index Pattern wizard](http://84.201.134.115:5601/app/kibana#/management/kibana/index_pattern?_g=())
 - [ ] [dbo index](http://84.201.134.115:5601/app/kibana#/discover?_g=())
 - [ ] [dbo stream](http://84.201.134.115:5601/app/infra#/logs/settings?_g=()), Log indices -> logstash*
 - [ ] Stream live

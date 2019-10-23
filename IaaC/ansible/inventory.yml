@@ -120,21 +120,21 @@
       bamboo_master_port: 8085
       bamboo_agent_user: bambooagent
       bamboo_agent_uid: 5000
-      bamboo_agent_jvm_memory: 1024m
+      bamboo_agent_jvm_memory: 2048m
       install_jdk: false
       bamboo_agent_capabilities:
-        - name: jre8
-          binary_path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+        - name: jdk8
+          binary_path: /usr/lib/jvm/java-8-openjdk-amd64
           symlinks: []
           properties:
             - key: system.jdk.JDK\ 1.8
-              value: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+              value: /usr/lib/jvm/java-8-openjdk-amd64
         - name: mvn3
-          binary_path: /opt/maven/apache-maven-3.6.2/bin/mvn
+          binary_path: /opt/maven/apache-maven-3.6.2
           symlinks: []
           properties:
-            - key: system.builder.mvn3.Maven\ 3
-              value: /opt/maven/apache-maven-3.6.2/bin/mvn
+            - key: system.builder.mvn3.Maven\ 3.6
+              value: /opt/maven/apache-maven-3.6.2
 
   tasks:
     - name: Copy custom maven settings file to bamboo_agent home directory
@@ -193,21 +193,15 @@
       bamboo_master_port: 8085
       bamboo_agent_user: bambooagent
       bamboo_agent_uid: 5000
-      bamboo_agent_jvm_memory: 256m
+      bamboo_agent_jvm_memory: 1024m
       install_jdk: false
       bamboo_agent_capabilities:
-        - name: jre8
-          binary_path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-          symlinks: []
-          properties:
-            - key: system.jdk.JDK\ 1.8
-              value: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
         - name: mvn3
-          binary_path: /opt/maven/apache-maven-3.6.2/bin/mvn
+          binary_path: /opt/maven/apache-maven-3.6.2
           symlinks: []
           properties:
-            - key: system.builder.mvn3.Maven\ 3
-              value: /opt/maven/apache-maven-3.6.2/bin/mvn
+            - key: system.builder.mvn3.Maven\ 3.6
+              value: /opt/maven/apache-maven-3.6.2
 
   vars:
     db_user: dbo
