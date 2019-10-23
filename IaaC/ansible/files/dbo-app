@@ -29,7 +29,7 @@ case $1 in
         if [ -f $PID_PATH_NAME ]; then
             PID=$(cat $PID_PATH_NAME);
             echo "$SERVICE_NAME stopping ...";
-            kill $PID;
+            curl --request POST http://localhost:8080/dbo/actuator/shutdown;
             echo "$SERVICE_NAME stopped ...";
             rm $PID_PATH_NAME
             echo "$SERVICE_NAME starting ..."

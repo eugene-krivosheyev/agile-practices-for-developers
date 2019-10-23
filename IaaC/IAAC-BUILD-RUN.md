@@ -111,7 +111,9 @@ curl --request POST http://84.201.157.139:8080/dbo/actuator/shutdown
 ## Запуск приложения как сервиса
 ```bash
 [admin@pre-prod:/$ [/bin/sh -c '] sudo update-rc.d dbo-app defaults]
+
 admin@pre-prod:/$ [/bin/sh -c '] sudo service dbo-app restart
+
 admin@pre-prod:/$ sudo service dbo-app status
 admin@pre-prod:/$ systemctl status dbo-app.service
 ```
