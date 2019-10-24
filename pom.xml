@@ -286,9 +286,6 @@
 					<reuseForks>true</reuseForks>
 					<parallel>methods</parallel>
 					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-					<additionalClasspathElements>
-						<additionalClasspathElement>src/integrationTest/resources</additionalClasspathElement>
-					</additionalClasspathElements>
 					<includes>
 						<include>**/*IT.java</include>
 						<include>**/*ST.java</include>
