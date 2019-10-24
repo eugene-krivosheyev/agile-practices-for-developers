@@ -1,4 +1,13 @@
 #!/bin/sh
+### BEGIN INIT INFO
+# Provides:          dbo-app
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: dbo-app service.
+### END INIT INFO
+
 SERVICE_NAME=dbo-app
 PATH_TO_JAR=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar
 PID_PATH_NAME=/tmp/dbo-app-pid

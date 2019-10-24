@@ -252,6 +252,11 @@
       become: yes
       command: update-rc.d dbo-app defaults
 
+    - name: Update systemd system
+      tags: distr
+      become: yes
+      command: systemctl enable dbo-app.service
+
     - name: Add 'bambooagent' user to 'admin' group in order to manage distr artifact
       tags: bamboo_agent
       become: yes
