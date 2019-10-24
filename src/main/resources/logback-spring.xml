@@ -121,7 +121,7 @@
       </encoder>
     </appender>
 
-    <root level="INFO"> <!-- Only for demo, otherwise should be ERROR -->
+    <root level="INFO"> <!-- TODO Only for demo, otherwise should be ERROR -->
       <appender-ref ref="CONSOLE" />
       <appender-ref ref="ROLLING-FILE" />
       <appender-ref ref="LOGSTASH" />

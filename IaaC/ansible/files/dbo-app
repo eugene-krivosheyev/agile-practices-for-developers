@@ -41,6 +41,7 @@ case $1 in
             curl --request POST http://localhost:8080/dbo/actuator/shutdown;
             echo "$SERVICE_NAME stopped ...";
             rm $PID_PATH_NAME
+            sleep 10s;
             echo "$SERVICE_NAME starting ..."
             nohup $PATH_TO_JAR >> dbo-app-service 2>&1&
             echo $! > $PID_PATH_NAME
