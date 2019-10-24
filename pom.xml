@@ -30,12 +30,6 @@
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName> <!-- TODO Set jar final name -->
 
-		<testResources>
-			<testResource>
-				<directory>src/integrationTest/resources</directory>
-			</testResource>
-		</testResources>
-
 		<plugins>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -232,49 +226,6 @@
 				<configuration>
 					<executable>true</executable>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<id>add-integration-test-source-as-test-sources</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/integrationTest/java</source>
-								<source>src/integrationTest/resources</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>copy-integration-test-resources-to-runtime</id>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/db</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/integrationTest/resources/db</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>

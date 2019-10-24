@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("it")
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "classpath:/features",
         plugin = {"pretty", "html:target/cucumber-reports"},
         strict = true,
         tags = "not @WIP"
