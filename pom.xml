@@ -179,6 +179,7 @@
 							<goal>mutationCoverage</goal>
 						</goals>
 						<configuration>
+							<skip>true</skip> <!-- Due to PITEST bug: it implicitly add filter for *IT and *ST tests. Workaround: use JUnit4 test suite for integration tests. -->
 							<reportsDirectory>target/pit-reports/it</reportsDirectory>
 							<targetTests>
 								<param>com.acme.dbo.it.*</param>
