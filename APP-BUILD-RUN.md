@@ -1,14 +1,11 @@
-# Build and Run
-## Build with Maven and Run raw release locally
+# Build with Maven and Run raw release locally
 ```bash
 ./mvnw verify -T 1C -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
 java -Dderby.stream.error.file=log/derby.log -jar target/dbo-1.0-SNAPSHOT.jar --spring.profiles.active=qa
 ```
+- http://localhost:8080/dbo/swagger-ui.html
 
-# API Doc
-http://localhost:8080/dbo/swagger-ui.html
-
-## Deploy artifact to Artifact Server
+# Deploy artifact to Artifact Server
 ```bash
 ./mvnw deploy -T 1C -s Iaac/ansible/files/maven-settings.xml -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
 ```
@@ -22,12 +19,6 @@ docker attach dbo
 docker exec -it dbo /bin/sh
 
 docker rm dbo -f
-```
-
-# Run release remotely
-```bash
-cd /dbo
-java -jar dbo-1.0-SNAPSHOT.jar
 ```
 
 # Graceful shutdown
