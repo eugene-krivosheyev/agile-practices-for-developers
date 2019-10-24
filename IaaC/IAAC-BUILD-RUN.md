@@ -38,6 +38,8 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ### [Bamboo](http://84.201.134.115:8085)
 - [ ] Лицензия
 - [ ] Учетка
+- [ ] [интегрировать с Bitbucket черезLinked Repositories](https://confluence.atlassian.com/bamboo/tutorial-bamboo-java-specs-stored-in-bitbucket-server-938641946.html): dbo-app-master
+- [ ] Активировать Specs: репо -> Scan for Bamboo Specs
 - [ ] Disable Default Agent
 - [ ] Remove unused capabilities
 - [ ] Agents -> Disable remote agent authentication
