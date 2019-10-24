@@ -166,7 +166,7 @@
 							<goal>mutationCoverage</goal>
 						</goals>
 						<configuration>
-							<reportsDirectory>target/pit-reports/ut</reportsDirectory>
+							<reportsDirectory>target/pit-reports</reportsDirectory>
 							<targetTests>
 								<param>com.acme.dbo.ut.*</param>
 							</targetTests>
