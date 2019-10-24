@@ -16,6 +16,8 @@ docker-compose --file ansible/files/ci-docker-compose.yml down
 ## Smoke test перед удаленной раскаткой 
 ```bash
 cd IaaC
+ssh-keygen -R 84.201.134.115
+ssh-keygen -R 84.201.157.139
 ansible -i ansible/hosts.yml -m shell -a 'uname -a' all
 ansible -i ansible/hosts.yml -m setup all
 ```
@@ -86,7 +88,6 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 ```bash
 cd ..
 ./mvnw -T 1C package -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
-[ssh-keygen -R 84.201.157.139]
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/
 [admin@pre-prod:~$ mvn -s /home/bambooagent/.m2/settings.xml org.apache.maven.plugins:maven-dependency-plugin:2.4:get -Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo] 
