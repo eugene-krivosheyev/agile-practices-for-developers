@@ -2,7 +2,7 @@
   <springProfile name="test, it">
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
       <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
         <level>ERROR</level>
@@ -14,7 +14,7 @@
       <append>true</append>
       <immediateFlush>false</immediateFlush>
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
       <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
         <level>TRACE</level>
@@ -31,7 +31,7 @@
   <springProfile name="qa">
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
       <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
         <level>WARN</level>
@@ -43,7 +43,7 @@
       <append>true</append>
       <immediateFlush>true</immediateFlush>
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
       <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
         <level>INFO</level>
@@ -82,7 +82,7 @@
   <springProfile name="prod">
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
     </appender>
 
@@ -99,7 +99,7 @@
       <append>true</append>
       <immediateFlush>false</immediateFlush>
       <encoder>
-        <pattern>%date{ISO8601} %thread %level %file:%line %msg%n</pattern>
+        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
     </appender>
 
