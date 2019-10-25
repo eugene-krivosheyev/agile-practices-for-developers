@@ -136,17 +136,9 @@
 					<systemPropertyVariables>
 						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
 					</systemPropertyVariables>
-					<forkCount>1</forkCount>
-					<reuseForks>true</reuseForks>
-					<parallel>all</parallel>
-					<threadCount>4</threadCount>
 					<properties>
-						<configurationParameters>
-							junit.jupiter.execution.parallel.enabled=true
-							junit.jupiter.execution.parallel.config.strategy=fixed
-							junit.jupiter.execution.parallel.config.fixed.parallelism=2
-							junit.jupiter.execution.parallel.mode.default=concurrent
-							junit.jupiter.execution.parallel.mode.classes.default=concurrent
+						<configurationParameters> <!-- Due to use of @MockBean: https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-parallel-test-execution -->
+							junit.jupiter.execution.parallel.enabled=false
 						</configurationParameters>
 					</properties>
 					<reportsDirectory>target/surefire-reports</reportsDirectory>
@@ -241,17 +233,9 @@
 				<version>3.0.0-M3</version>
 				<configuration>
 					<argLine>${failsafeArgs} -Xms1024m -Xmx1024m -XX:MaxPermSize=256m</argLine>
-					<forkCount>1</forkCount>
-					<reuseForks>true</reuseForks>
-					<parallel>all</parallel>
-					<threadCount>4</threadCount>
 					<properties>
-						<configurationParameters>
-							junit.jupiter.execution.parallel.enabled=true
-							junit.jupiter.execution.parallel.config.strategy=fixed
-							junit.jupiter.execution.parallel.config.fixed.parallelism=2
-							junit.jupiter.execution.parallel.mode.default=concurrent
-							junit.jupiter.execution.parallel.mode.classes.default=concurrent
+						<configurationParameters> <!-- Due to use of @MockBean: https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-parallel-test-execution -->
+							junit.jupiter.execution.parallel.enabled=false
 						</configurationParameters>
 					</properties>
 					<includes>
