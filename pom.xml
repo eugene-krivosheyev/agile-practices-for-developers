@@ -27,6 +27,10 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<properties>
+		<sonar.junit.reportPaths>target/surefire-reports,target/failsafe-reports</sonar.junit.reportPaths>
+	</properties>
+
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName> <!-- TODO Set jar final name -->
 
