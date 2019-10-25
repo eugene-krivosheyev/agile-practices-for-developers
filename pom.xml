@@ -131,9 +131,11 @@
 					<systemPropertyVariables>
 						<derby.stream.error.file>log/derby.log</derby.stream.error.file>
 					</systemPropertyVariables>
-					<parallel>methods</parallel>
+					<forkCount>0</forkCount>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<parallel>all</parallel>
 					<threadCount>4</threadCount>
-					<reuseForks>true</reuseForks>
+					<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=256m</argLine>
 					<properties>
 						<configurationParameters>
 							junit.jupiter.execution.parallel.enabled = true
@@ -143,7 +145,7 @@
 							junit.jupiter.execution.parallel.mode.classes.default = concurrent
 						</configurationParameters>
 					</properties>
-					<reportsDirectory>target/surefire-reports/fork-${surefire.forkNumber}</reportsDirectory>
+					<reportsDirectory>target/surefire-reports</reportsDirectory>
 				</configuration>
 			</plugin>
 
@@ -234,10 +236,11 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
-					<forkCount>4</forkCount>
-					<reuseForks>true</reuseForks>
-					<parallel>methods</parallel>
-					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+					<forkCount>0</forkCount>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<parallel>all</parallel>
+					<threadCount>4</threadCount>
+					<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=256m</argLine>
 					<includes>
 						<include>**/*IT.java</include>
 						<include>**/*ST.java</include>

@@ -115,13 +115,13 @@ curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/d
 - Ручное копирование scp
 ```bash
 cd ..
-./mvnw -T 1C package -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
+./mvnw package -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/
 ```
 
 - Ручное копирование через Maven Repo
 ```bash
-./mvnw deploy -T 1C -s Iaac/ansible/files/maven-settings.xml -DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true
+./mvnw deploy -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:~$ mvn -s /home/bambooagent/.m2/settings.xml org.apache.maven.plugins:maven-dependency-plugin:2.4:get -Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo 
 ```
