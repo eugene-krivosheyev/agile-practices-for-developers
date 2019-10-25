@@ -79,7 +79,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<destFile>target/jacoco-reports/ut/jacoco.exec</destFile>
+							<destFile>target/jacoco-reports/ut/jacoco-ut.exec</destFile>
 							<propertyName>surefireArgs</propertyName>
 						</configuration>
 					</execution>
@@ -90,7 +90,7 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<dataFile>target/jacoco-reports/ut/jacoco.exec</dataFile>
+							<dataFile>target/jacoco-reports/ut/jacoco-ut.exec</dataFile>
 							<outputDirectory>target/jacoco-reports/ut</outputDirectory>
 						</configuration>
 					</execution>
@@ -101,7 +101,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<destFile>target/jacoco-reports/it/jacoco.exec</destFile>
+							<destFile>target/jacoco-reports/it/jacoco-it.exec</destFile>
 							<propertyName>failsafeArgs</propertyName>
 						</configuration>
 					</execution>
@@ -112,7 +112,7 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<dataFile>target/jacoco-reports/it/jacoco.exec</dataFile>
+							<dataFile>target/jacoco-reports/it/jacoco-it.exec</dataFile>
 							<outputDirectory>target/jacoco-reports/it</outputDirectory>
 						</configuration>
 					</execution>
