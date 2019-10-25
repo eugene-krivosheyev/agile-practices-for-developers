@@ -39,6 +39,11 @@
 
             insert into CLIENT(LOGIN, SECRET, SALT, ENABLED)
             values('disabled@acme.com', '7a2d0aa3d45a06277ee9e48623ae0dc1d9d5f83948a0b3e5cba3cae4fda533f7', 'salt', false);
+
+
+            insert into ACCOUNT(CLIENT_ID, AMOUNT) values(1, 0);
+            insert into ACCOUNT(CLIENT_ID, AMOUNT) values(1, 100);
+            insert into ACCOUNT(CLIENT_ID, AMOUNT) values(2, 200);
         </sql>
         <rollback>
             delete from CLIENT where LOGIN = 'disabled';

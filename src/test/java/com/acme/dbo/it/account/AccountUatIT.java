@@ -1,4 +1,4 @@
-package com.acme.dbo.it.ui;
+package com.acme.dbo.it.account;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
@@ -21,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("it")
 @Transactional
-public class SeleniumIT {
+public class AccountUatIT {
     @LocalServerPort protected int serverPort;
 
     @Test @Rollback
-    public void shouldRespondWithSwaggerUI() throws InterruptedException {
+    public void shouldGetAccountsWhenPrepopulatedDbHasSome() throws InterruptedException {
         WebDriverManager.phantomjs().setup();
         WebDriver driver = new PhantomJSDriver();
 

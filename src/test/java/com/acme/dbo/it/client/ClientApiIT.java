@@ -1,4 +1,4 @@
-package com.acme.dbo.it;
+package com.acme.dbo.it.client;
 
 import com.acme.dbo.client.domain.Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,12 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("it")
 @FieldDefaults(level = PRIVATE)
 @NoArgsConstructor
-public class ExampleIT {
+public class ClientApiIT {
     @Autowired MockMvc mockMvc;
     @Autowired ObjectMapper jsonMapper;
 
     @Test
-    public void shouldGetClientWithId1() throws Exception {
+    public void shouldGetClientWhenPrepopulatedDbHasOne() throws Exception {
         String clientFoundJsonString = mockMvc.perform(
                 get("/api/client/1").header("X-API-VERSION", "1")
         ).andDo(print()).andExpect(status().is(200))

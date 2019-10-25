@@ -1,19 +1,17 @@
-package com.acme.dbo.ut;
+package com.acme.dbo.ut.account;
 
 import com.acme.dbo.account.controller.AccountController;
 import com.acme.dbo.account.dao.AccountRepository;
 import com.acme.dbo.account.domain.Account;
-import com.acme.dbo.client.dao.ClientRepository;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.DisabledIf;
 
@@ -26,19 +24,23 @@ import static org.mockito.Mockito.verify;
 
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = {}) //Have to load context in order to Feature Toggling expressions works
 @Slf4j
 @ActiveProfiles("test")
 @FieldDefaults(level = PRIVATE)
 @NoArgsConstructor
-public class AccountControllerTest {
-    @Autowired AccountController sut;
-    @MockBean AccountRepository accountRepositoryMock;
-    @MockBean ClientRepository clientRepositoryDummy;
+public class AccountControllerUnitTest {
+    AccountController sut;
+    @Mock AccountRepository accountRepositoryMock;
     @Mock Account accountStub;
 
+    @BeforeEach
+    public void setupSut() {
+        sut = new AccountController(accountRepositoryMock);
+    }
+
     @Test
-    public void exampleTest() {
+    public void shouldCallRepositoryAngGetAccountWhenMockedRepoHasOne() {
         given(accountRepositoryMock.findAll()).willReturn(singletonList(accountStub));
 
         assertThat(sut.getAccounts()).containsOnly(accountStub);

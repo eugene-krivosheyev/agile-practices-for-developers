@@ -14,5 +14,5 @@ import org.springframework.test.context.ActiveProfiles;
         strict = true,
         tags = "not @WIP"
 )
-public class CucumberSuiteIT {
+public class BddSuiteIT {
 }

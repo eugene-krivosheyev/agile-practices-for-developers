@@ -30,6 +30,8 @@ endpoints:
 
 spring:
   profiles: test
+  main:
+    lazy-initialization: true
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -40,6 +42,8 @@ spring:
 
 spring:
   profiles: it
+  main:
+    lazy-initialization: true
   datasource:
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     url: jdbc:derby:memory:dbo-db;create=true
