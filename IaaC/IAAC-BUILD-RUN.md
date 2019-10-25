@@ -60,7 +60,9 @@ Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivity
 - [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
 - [ ] Учетка
-- [ ] Репошечка: dbo, Allow Content Browsing
+- [ ] Локальная репошечка: dbo-corp, Allow Content Browsing
+- [ ] Удаленная репошечка: mavencentral, http://repo.maven.apache.org, Allow Content Browsing
+- [ ] Виртуальная репошечка dbo: добавить dbo-corp + mavencentral, Allow Content Browsing
 - [ ] Обновить данные в IaaC/ansible/files/maven-settings.xml
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка
@@ -115,7 +117,7 @@ curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/d
 - Ручное копирование scp
 ```bash
 cd ..
-./mvnw package -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
+./mvnw package -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/
 ```
 
