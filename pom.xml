@@ -135,7 +135,7 @@
 					<forkCount>1</forkCount>
 					<reuseForks>true</reuseForks>
 					<parallel>all</parallel>
-					<threadCount>2</threadCount>
+					<threadCount>4</threadCount>
 					<properties>
 						<configurationParameters>
 							junit.jupiter.execution.parallel.enabled=true
@@ -201,7 +201,7 @@
 						<class>org.springframework.*</class>
 					</excludedClasses>
 					<timestampedReports>false</timestampedReports>
-					<threads>2</threads>
+					<threads>4</threads>
 					<jvmArgs>
 						<arg>-Dderby.stream.error.file=log/derby.log</arg>
 					</jvmArgs>
@@ -240,7 +240,7 @@
 					<forkCount>1</forkCount>
 					<reuseForks>true</reuseForks>
 					<parallel>all</parallel>
-					<threadCount>2</threadCount>
+					<threadCount>4</threadCount>
 					<properties>
 						<configurationParameters>
 							junit.jupiter.execution.parallel.enabled=true
