@@ -5,7 +5,7 @@
         <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
       </encoder>
       <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-        <level>ERROR</level>
+        <level>WARN</level>
       </filter>
     </appender>
 
@@ -80,12 +80,6 @@
 
 
   <springProfile name="prod">
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-      <encoder>
-        <pattern>%date{ISO8601} %level %thread %logger{20} %file:%line - %msg%n</pattern>
-      </encoder>
-    </appender>
-
     <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>log/dbo.log</file>
 
@@ -121,10 +115,13 @@
       </encoder>
     </appender>
 
-    <root level="INFO"> <!-- TODO Only for demo, otherwise should be ERROR -->
-      <appender-ref ref="CONSOLE" />
+    <root level="WARN">
       <appender-ref ref="ROLLING-FILE" />
       <appender-ref ref="LOGSTASH" />
     </root>
+    <logger name="org.springframework.web" level="INFO"> <!-- TODO Only for demo, otherwise should be ERROR -->
+      <appender-ref ref="ROLLING-FILE" />
+      <appender-ref ref="LOGSTASH" />
+    </logger>
   </springProfile>
 </configuration>
