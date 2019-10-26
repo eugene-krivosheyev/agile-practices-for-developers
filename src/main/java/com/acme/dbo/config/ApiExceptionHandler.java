@@ -1,19 +1,16 @@
 package com.acme.dbo.config;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-    @ExceptionHandler(value = EntityNotFoundException.class)
-    public ResponseEntity reportEntityNotFound(Exception e) {
-        return new ResponseEntity<>(
-                e.getMessage(),
-                HttpStatus.NOT_FOUND
-        );
+    @ExceptionHandler(EntityNotFoundException.class)
+    public void reportEntityNotFound(Exception e) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
     }
 }
