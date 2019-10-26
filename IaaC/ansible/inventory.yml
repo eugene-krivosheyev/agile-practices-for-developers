@@ -255,16 +255,16 @@
       tags: distr
       become: yes
       copy:
-        src: dbo-app
-        dest: /etc/init.d/dbo-app
+        src: dbo-app.service
+        dest: /etc/systemd/system/
         mode: '0755'
 
-    - name: Update init.d system
+    - name: Update systemd system
       tags: distr
       become: yes
-      command: update-rc.d dbo-app defaults
+      command: systemctl daemon-reload
 
-    - name: Update systemd system
+    - name: Enable service start on reboot
       tags: distr
       become: yes
       command: systemctl enable dbo-app.service

@@ -1,0 +1,14 @@
+[Unit]
+Description=DBO Application Service
+
+[Service]
+User=dboadmin
+WorkingDirectory=/home/dboadmin/dbo
+ExecStart=/usr/bin/java -Xmx256m -jar dbo-1.0-SNAPSHOT.jar
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
