@@ -46,9 +46,9 @@ git push -u bitbucket
 ### [Bamboo](http://84.201.134.115:8085)
 - [ ] Лицензия
 - [ ] Учетка
-- [ ] [Связать с Bitbucket черезLinked Repositories](https://confluence.atlassian.com/bamboo/tutorial-bamboo-java-specs-stored-in-bitbucket-server-938641946.html): dbo-app-master
+- [ ] [Связать с Bitbucket черезLinked Repositories](http://84.201.134.115:8085/admin/configureLinkedRepositories!doDefault.action): dbo-app-master
 - [ ] [Активировать Specs](http://84.201.134.115:8085/admin/configureLinkedRepositories!doDefault.action): репо -> Scan for Bamboo Specs
-- [ ] Disable Default Agent
+- [ ] Disable Default Agent (in-docker)
 - [ ] Agents -> Disable remote agent authentication
 - [ ] General Configuration -> Broker configuration:
 ```
@@ -56,14 +56,13 @@ Broker URL: tcp://0.0.0.0:54663?wireFormat.maxInactivityDuration=300000
 Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivityDuration=300000)?initialReconnectDelay=15000&maxReconnectAttempts=10
 ```
 - [ ] [Sonar Plugin for Bamboo](http://84.201.134.115:8085/plugins/servlet/upm/marketplace/featured?source=side_nav_find_new_addons) Plugin
-- [ ] [Configure](http://84.201.134.115:8085/admin/sonar4bamboo/viewSonarServerConfigs.action) Sonar
+- [ ] [Configure](http://84.201.134.115:8085/admin/sonar4bamboo/viewSonarServerConfigs.action) Sonar: sonarqube, http://84.201.134.115:9000
 - [ ] Restart Bamboo CI
-- [ ] [Artifactory Plugin](https://marketplace.atlassian.com/apps/27818/artifactory-for-bamboo?tab=installation)
 ### [Artifactory](http://84.201.134.115:8081)
 - [ ] Учетка
 - [ ] Локальная репошечка: dbo-corp, Allow Content Browsing
-- [ ] Удаленная репошечка: mavencentral, http://repo.maven.apache.org, Allow Content Browsing
-- [ ] Виртуальная репошечка dbo: добавить dbo-corp + mavencentral, Allow Content Browsing
+- [ ] Удаленная репошечка: mvncentral, https://repo1.maven.org/maven2, Allow Content Browsing
+- [ ] Виртуальная репошечка dbo: добавить dbo-corp + mavencentral, Artifactory Requests Can Retrieve Remote Artifacts, Default Deployment Repository
 - [ ] Обновить данные в IaaC/ansible/files/maven-settings.xml
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка

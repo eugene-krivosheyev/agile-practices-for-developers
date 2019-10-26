@@ -67,8 +67,8 @@ public class PlanSpec {
                                                 .checkoutItems(new CheckoutItem().defaultRepository()),
                                         new MavenTask()
                                                 .description("maven-full-build")
-                                                .goal("clean verify -T 1C")
-                                                .environmentVariables("MAVEN_OPTS=\"-Xms512m -Xmx1g -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
+                                                .goal("clean verify -U")
+                                                .environmentVariables("MAVEN_OPTS=\"-Xms512m -Xmx1g -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
                                                 .jdk("JDK 1.8")
                                                 .executableLabel("Maven 3.6")
                                                 .hasTests(true)
@@ -115,8 +115,8 @@ public class PlanSpec {
                                                         .build()),
                                         new MavenTask()
                                                 .description("upload-distr-to-artifactiry")
-                                                .goal("deploy -T 1C")
-                                                .environmentVariables("MAVEN_OPTS=\"-DskipTests -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
+                                                .goal("deploy -U")
+                                                .environmentVariables("MAVEN_OPTS=\"-DskipTests -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
                                                 .jdk("JDK 1.8")
                                                 .executableLabel("Maven 3.6"))))
                 .linkedRepositories("dbo-app-master")
