@@ -135,7 +135,7 @@ public class PlanSpec {
                                         .description("clean"),
                                 new MavenTask()
                                         .description("distr-download")
-                                        .goal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get -T 1C")
+                                        .goal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get -U")
                                         .environmentVariables("MAVEN_OPTS=\"-Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo\"")
                                         .jdk("JRE 1.8")
                                         .executableLabel("Maven 3.6"),
