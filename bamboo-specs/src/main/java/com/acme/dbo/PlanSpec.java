@@ -67,7 +67,7 @@ public class PlanSpec {
                                                 .checkoutItems(new CheckoutItem().defaultRepository()),
                                         new MavenTask()
                                                 .description("maven-full-build")
-                                                .goal("clean verify -U")
+                                                .goal("clean verify")
                                                 .environmentVariables("MAVEN_OPTS=\"-Xms512m -Xmx1g -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
                                                 .jdk("JDK 1.8")
                                                 .executableLabel("Maven 3.6")
@@ -115,7 +115,7 @@ public class PlanSpec {
                                                         .build()),
                                         new MavenTask()
                                                 .description("upload-distr-to-artifactiry")
-                                                .goal("deploy -U")
+                                                .goal("deploy")
                                                 .environmentVariables("MAVEN_OPTS=\"-DskipTests -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
                                                 .jdk("JDK 1.8")
                                                 .executableLabel("Maven 3.6"))))
@@ -136,7 +136,7 @@ public class PlanSpec {
                                 new MavenTask()
                                         .description("distr-download")
                                         .goal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get -U")
-                                        .environmentVariables("MAVEN_OPTS=\"-Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo\"")
+                                        .environmentVariables("MAVEN_OPTS=\"-Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo\"")
                                         .jdk("JRE 1.8")
                                         .executableLabel("Maven 3.6"),
                                 new ScriptTask()
