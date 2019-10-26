@@ -19,8 +19,13 @@
   pre_tasks:
     - assert:
         that:
-          - ansible_memtotal_mb >= 16000
+          - ansible_memtotal_mb >= 10000
           - ansible_processor_vcpus >= 4
+
+    - assert:
+        that:
+          - item.mount != '/' or {{ item.mount == '/' and (item.size_available|int / const_bytes_in_gb|int)|round(1)) >= 10 }}
+        with_items: "{{ ansible_mounts }}"
 
   roles:
     - role: geerlingguy.docker
@@ -93,6 +98,11 @@
           - ansible_memtotal_mb >= 2000
           - ansible_processor_vcpus >= 1
 
+    - assert:
+        that:
+          - item.mount != '/' or {{ item.mount == '/' and (item.size_available|int / const_bytes_in_gb|int)|round(1)) >= 2 }}
+        with_items: "{{ ansible_mounts }}"
+
     - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
       tags: bamboo_agent
       group:
@@ -154,8 +164,13 @@
   pre_tasks:
     - assert:
         that:
-          - ansible_memtotal_mb >= 6000
-          - ansible_processor_vcpus >= 2
+          - ansible_memtotal_mb >= 4000
+          - ansible_processor_vcpus >= 1
+
+    - assert:
+        that:
+          - item.mount != '/' or {{ item.mount == '/' and (item.size_available|int / const_bytes_in_gb|int)|round(1)) >= 1 }}
+        with_items: "{{ ansible_mounts }}"
 
     - name: Ensure group "bambooagent" exists (due to bug in mimacom.bamboo-agent)
       tags: bamboo_agent
