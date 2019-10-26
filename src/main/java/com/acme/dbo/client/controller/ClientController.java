@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
 import java.util.Collection;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -47,6 +46,7 @@ public class ClientController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Info", notes = "Get client information", response = Client.class)
     public Client getClient(@PathVariable("id") long id) {
-        return clients.findById(id).orElseThrow(EntityNotFoundException::new);
+        return clients.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
