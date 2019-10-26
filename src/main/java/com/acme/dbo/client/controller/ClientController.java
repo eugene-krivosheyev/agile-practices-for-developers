@@ -47,6 +47,6 @@ public class ClientController {
     @ApiOperation(value = "Info", notes = "Get client information", response = Client.class)
     public Client getClient(@PathVariable("id") long id) {
         return clients.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("client #" + id));
     }
 }
