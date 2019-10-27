@@ -115,13 +115,9 @@
       </encoder>
     </appender>
 
-    <root level="WARN">
+    <root level="INFO"> <!-- TODO Demo purpose only -->
       <appender-ref ref="ROLLING-FILE" />
       <appender-ref ref="LOGSTASH" />
     </root>
-    <logger name="org.springframework.web" level="INFO"> <!-- TODO Only for demo, otherwise should be ERROR -->
-      <appender-ref ref="ROLLING-FILE" />
-      <appender-ref ref="LOGSTASH" />
-    </logger>
   </springProfile>
 </configuration>
