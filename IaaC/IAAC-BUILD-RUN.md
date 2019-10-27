@@ -118,20 +118,20 @@ curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/d
 ```bash
 cd ..
 ./mvnw package -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
-scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/dbo/
+scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/home/dboadmin/dbo/
 ```
 
 - Ручное копирование через Maven Repo
 ```bash
 ./mvnw deploy -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
-admin@pre-prod:~$ mvn -s /home/bambooagent/.m2/settings.xml org.apache.maven.plugins:maven-dependency-plugin:2.4:get -Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo 
+admin@pre-prod:/home/dboadmin/dbo$ mvn -s /home/bambooagent/.m2/settings.xml org.apache.maven.plugins:maven-dependency-plugin:2.4:get -Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo 
 ```
 
 - Ручной запуск и остановка как приложения
 ```bash
-admin@pre-prod:~$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar /dbo/dbo-1.0-SNAPSHOT.jar &
-admin@pre-prod: ps -af
+admin@pre-prod:/home/dboadmin/dbo$ nohup java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=84.201.157.139 -jar /dbo/dbo-1.0-SNAPSHOT.jar &
+admin@pre-prod:/home/dboadmin/dbo$ ps -af
 
 admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"
 ```
@@ -139,7 +139,7 @@ admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"
 - Запуск и остановка приложения как сервиса
 ```bash
 [admin@pre-prod:/$ [/bin/sh -c '] sudo systemctl daemon-reload]
-admin@pre-prod:/$ [/bin/sh -c '] sudo systemctl enable dbo-app.service
+[admin@pre-prod:/$ [/bin/sh -c '] sudo systemctl enable dbo-app.service]
 
 admin@pre-prod:/$ sudo systemctl status dbo-app.service
 
