@@ -141,7 +141,7 @@ public class PlanSpec {
                                         .executableLabel("Maven 3.6"),
                                 new ScriptTask()
                                         .description("restart-service")
-                                        .inlineBody("systemctl restart dbo-app"))
+                                        .inlineBody("sudo systemctl restart dbo-app"))
                         .triggers(new AfterSuccessfulBuildPlanTrigger()
                                         .triggerByMasterBranch()));
     }

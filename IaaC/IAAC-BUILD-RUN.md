@@ -138,11 +138,10 @@ admin@pre-prod: pkill -9 -f "dbo-1.0-SNAPSHOT.jar"
 
 - Запуск и остановка приложения как сервиса
 ```bash
-[admin@pre-prod:/$ [/bin/sh -c '] sudo update-rc.d dbo-app defaults]
-admin@pre-prod:/$ [/bin/sh -c '] sudo service dbo-app restart
+[admin@pre-prod:/$ [/bin/sh -c '] sudo systemctl daemon-reload]
+admin@pre-prod:/$ [/bin/sh -c '] sudo systemctl enable dbo-app.service
 
-admin@pre-prod:/$ sudo service dbo-app status
-admin@pre-prod:/$ systemctl status dbo-app.service
+admin@pre-prod:/$ sudo systemctl status dbo-app.service
 
 curl --request POST http://84.201.157.139:8080/dbo/actuator/shutdown
 ```
