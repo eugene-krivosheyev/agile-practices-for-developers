@@ -94,7 +94,7 @@
   pre_tasks:
     - assert:
         that:
-          - ansible_memtotal_mb >= 4000
+          - ansible_memtotal_mb >= 2000
           - ansible_processor_vcpus >= 1
 
     - assert:
@@ -162,7 +162,7 @@
   pre_tasks:
     - assert:
         that:
-          - ansible_memtotal_mb >= 4000
+          - ansible_memtotal_mb >= 2000
           - ansible_processor_vcpus >= 1
 
     - assert:
