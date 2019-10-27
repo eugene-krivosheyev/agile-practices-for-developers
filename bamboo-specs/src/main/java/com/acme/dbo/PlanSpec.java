@@ -68,7 +68,7 @@ public class PlanSpec {
                                         new MavenTask()
                                                 .description("maven-full-build")
                                                 .goal("clean verify")
-                                                .environmentVariables("MAVEN_OPTS=\"-Xms512m -Xmx512g -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
+                                                .environmentVariables("MAVEN_OPTS=\"-Xms512m -Xmx512m -Dlogback.configurationFile=logback.xml -Djava.awt.headless=true\"")
                                                 .jdk("JDK 1.8")
                                                 .executableLabel("Maven 3.6")
                                                 .hasTests(true)
