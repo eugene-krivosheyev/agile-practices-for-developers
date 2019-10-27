@@ -38,7 +38,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Profile("it")
+    @Profile("qa | prod")
     @DependsOn("liquibase")
     @Lazy(false)
     public PoolClosingLiquibaseFinishedListener liquibaseDbUpdateFinishedListener() {
@@ -56,7 +56,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
             if (liquibaseDatasource instanceof HikariDataSource) {
                 HikariDataSource hikariDataSource = (HikariDataSource) liquibaseDatasource;
                 hikariDataSource.close();
-                log.error("Closed Liquibase Hikari connection pool: " + hikariDataSource.getPoolName());
+                log.debug("Closed Liquibase Hikari connection pool: " + hikariDataSource.getPoolName());
             }
         }
     }
