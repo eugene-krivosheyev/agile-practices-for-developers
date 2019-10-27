@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class ErrorInfo {
     public final LocalDateTime timestamp;
-    public final int errorCode;
+    public final int status;
     public final String message;
 
-    public ErrorInfo(LocalDateTime timestamp, int errorCode, String message) {
+    public ErrorInfo(LocalDateTime timestamp, int status, String message) {
         this.timestamp = timestamp;
-        this.errorCode = errorCode;
+        this.status = status;
         this.message = message;
     }
 }
