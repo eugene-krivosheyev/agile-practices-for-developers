@@ -1,6 +1,8 @@
 package com.acme.dbo.it.account;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -11,21 +13,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.DisabledIf;
-import org.springframework.transaction.annotation.Transactional;
+
+import static lombok.AccessLevel.PRIVATE;
 
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("it")
-@Transactional
+@Slf4j
+@FieldDefaults(level = PRIVATE)
 public class AccountUatIT {
-    @LocalServerPort protected int serverPort;
+    @LocalServerPort int serverPort;
 
-    @Test @Rollback
-    public void shouldGetAccountsWhenPrepopulatedDbHasSome() throws InterruptedException {
+    @Test
+    public void shouldGetAccountsWhenPrepopulatedDbHasSome() {
         WebDriverManager.phantomjs().setup();
         WebDriver driver = new PhantomJSDriver();
 

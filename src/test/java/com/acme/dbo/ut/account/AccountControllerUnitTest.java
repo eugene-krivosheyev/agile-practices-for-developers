@@ -3,7 +3,6 @@ package com.acme.dbo.ut.account;
 import com.acme.dbo.account.controller.AccountController;
 import com.acme.dbo.account.dao.AccountRepository;
 import com.acme.dbo.account.domain.Account;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +23,10 @@ import static org.mockito.Mockito.verify;
 
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(classes = {}) //Have to load context in order to Feature Toggling expressions works
-@Slf4j
+@SpringBootTest //Have to load context in order to Feature Toggling expressions works
 @ActiveProfiles("test")
+@Slf4j
 @FieldDefaults(level = PRIVATE)
-@NoArgsConstructor
 public class AccountControllerUnitTest {
     AccountController sut;
     @Mock AccountRepository accountRepositoryMock;

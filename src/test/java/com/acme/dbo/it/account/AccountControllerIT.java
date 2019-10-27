@@ -2,7 +2,6 @@ package com.acme.dbo.it.account;
 
 import com.acme.dbo.account.controller.AccountController;
 import com.acme.dbo.account.domain.Account;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-@Slf4j
 @ActiveProfiles("it")
+@Slf4j
 @FieldDefaults(level = PRIVATE)
-@NoArgsConstructor
 public class AccountControllerIT {
     @Autowired AccountController sut;
 

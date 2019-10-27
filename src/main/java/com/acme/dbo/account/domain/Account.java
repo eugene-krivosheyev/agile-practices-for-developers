@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Past;
-import java.sql.Timestamp;
 import java.time.Instant;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -25,6 +24,7 @@ public class Account {
     @Column(name = "ID", columnDefinition = "INTEGER")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(dataType = "Long")
+    @EqualsAndHashCode.Exclude
     @Nullable Long id;
 
     @Column(name = "CLIENT_ID", columnDefinition = "INTEGER")
@@ -39,5 +39,6 @@ public class Account {
     @Column(name = "CREATE_STAMP")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ApiModelProperty(dataType = "Instant")
+    @EqualsAndHashCode.Exclude
     @Nullable @Past Instant createStamp;
 }

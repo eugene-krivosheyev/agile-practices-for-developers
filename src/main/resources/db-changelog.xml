@@ -46,9 +46,8 @@
             insert into ACCOUNT(CLIENT_ID, AMOUNT) values(2, 200);
         </sql>
         <rollback>
-            delete from CLIENT where LOGIN = 'disabled';
-            delete from CLIENT where LOGIN = 'account';
-            delete from CLIENT where LOGIN = 'admin';
+            delete from ACCOUNT;
+            delete from CLIENT;
         </rollback>
     </changeSet>
 </databaseChangeLog>

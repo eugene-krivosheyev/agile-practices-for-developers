@@ -3,7 +3,6 @@ package com.acme.dbo.it.account;
 import com.acme.dbo.account.controller.AccountController;
 import com.acme.dbo.account.dao.AccountRepository;
 import com.acme.dbo.account.domain.Account;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.DisabledIf;
@@ -25,11 +24,10 @@ import static org.mockito.Mockito.verify;
 
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(classes = AccountController.class)
-@Slf4j
+@WebMvcTest(AccountController.class)
 @ActiveProfiles("it")
+@Slf4j
 @FieldDefaults(level = PRIVATE)
-@NoArgsConstructor
 public class AccountControllerComponentIT {
     @Autowired AccountController sut;
     @MockBean AccountRepository accountRepositoryMock;

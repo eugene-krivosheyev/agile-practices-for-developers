@@ -14,16 +14,14 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @FieldDefaults(level = PRIVATE)
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @ApiModel(description = "Entity with personalized information about client")
 @Entity
@@ -32,6 +30,7 @@ public class Client {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ApiModelProperty(notes = "Unique identification of client", hidden = true)
     @Nullable @PositiveOrZero Long id;
