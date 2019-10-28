@@ -60,7 +60,7 @@ public class AccountUatIT {
 
         $(byClassName("response")).shouldBe(visible)
                 .$(byXpath("*[contains(@class, 'status')]"))
-                    .shouldHave(text("2001"));
+                    .shouldHave(text("200"));
     }
 
     @AfterAll
