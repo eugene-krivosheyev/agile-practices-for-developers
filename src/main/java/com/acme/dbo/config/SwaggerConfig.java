@@ -3,6 +3,7 @@ package com.acme.dbo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -28,7 +29,9 @@ public class SwaggerConfig {
                 .produces(DEFAULT_PRODUCES_AND_CONSUMES)
                 .consumes(DEFAULT_PRODUCES_AND_CONSUMES)
                 .select()
-                    .apis(not(basePackage("org.springframework")))
+                    .apis(basePackage("com.acme.dbo"))
+                    .apis(not(basePackage("com.acme.dbo.config")))
+                .paths(PathSelectors.any())
             .build()
                 .apiInfo(apiInfo());
     }
