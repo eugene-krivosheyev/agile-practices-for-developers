@@ -15,6 +15,7 @@ public class TestConfig {
     @Profile("it")
     public WebDriver webDriver() {
         WebDriverManager.chromedriver().setup();
-        return new ChromeDriver(new ChromeOptions().setHeadless(true));
+//        options.addArguments("--headless");
+        return new ChromeDriver(new ChromeOptions().addArguments("--disable-gpu").setHeadless(true));
     }
 }
