@@ -2,8 +2,8 @@ package com.acme.dbo.config;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
@@ -33,9 +33,9 @@ public class ScreenshotExceptionExtension implements TestExecutionExceptionHandl
     private void makeScreenshot(String testMethodName, WebDriver webDriver) throws IOException {
         File screenshotsDir = Paths.get("target", "test-error-reports").toFile();
         if (!screenshotsDir.exists()) screenshotsDir.mkdirs();
-        webDriver.manage().window().maximize();
+
         copy(
-                ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE).toPath(),
+                webDriver.findElement(By.tagName("body")).getScreenshotAs(OutputType.FILE).toPath(),
                 new File(screenshotsDir, testMethodName + "-" + LocalDateTime.now() + ".jpg").toPath(),
                 REPLACE_EXISTING
         );
