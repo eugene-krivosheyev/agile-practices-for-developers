@@ -1,4 +1,4 @@
-package com.acme.dbo.it.account.uat.page;
+package com.acme.dbo.it.client.uat.page;
 
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
