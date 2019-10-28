@@ -15,9 +15,12 @@ public class TestConfig {
     @Profile("it")
     public WebDriver webDriver() {
         WebDriverManager.chromedriver().setup();
-        return new ChromeDriver(new ChromeOptions()
-                .setHeadless(true)
+        WebDriver driver = new ChromeDriver(new ChromeOptions()
                 .addArguments("--headless")
-                .addArguments("--disable-gpu"));
+                .addArguments("--disable-gpu")
+                .addArguments("--start-maximized"));
+
+        driver.manage().window().maximize();
+        return driver;
     }
 }
