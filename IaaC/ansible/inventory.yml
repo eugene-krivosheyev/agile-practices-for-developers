@@ -154,6 +154,31 @@
         group: bambooagent
         mode: '0664'
 
+    - name: Install Chrome dependencies
+      tags: chrome
+      become: yes
+      apt:
+        name: "{{item}}"
+      with_items:
+        - libappindicator1
+        - fonts-liberation
+        - libappindicator3-1
+        - libgtk-3-0
+        - libxss1
+        - xdg-utils
+
+    - name: Get Chrome distr
+      tags: chrome
+      become: yes
+      get_url:
+        url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        dest: /tmp/
+
+    - name: Install Chrome
+      tags: chrome
+      become: yes
+      command: dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+
 
 - hosts: pre_prod
   gather_facts: yes
