@@ -5,7 +5,6 @@ import com.atlassian.bamboo.specs.api.builders.AtlassianModule;
 import com.atlassian.bamboo.specs.api.builders.deployment.Deployment;
 import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
 import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
-import com.atlassian.bamboo.specs.api.builders.permission.*;
 import com.atlassian.bamboo.specs.api.builders.plan.Job;
 import com.atlassian.bamboo.specs.api.builders.plan.Plan;
 import com.atlassian.bamboo.specs.api.builders.plan.Stage;
@@ -15,7 +14,6 @@ import com.atlassian.bamboo.specs.api.builders.plan.branches.PlanBranchManagemen
 import com.atlassian.bamboo.specs.api.builders.plan.configuration.ConcurrentBuilds;
 import com.atlassian.bamboo.specs.api.builders.project.Project;
 import com.atlassian.bamboo.specs.api.builders.task.AnyTask;
-import com.atlassian.bamboo.specs.builders.task.*;
 import com.atlassian.bamboo.specs.builders.trigger.AfterSuccessfulBuildPlanTrigger;
 import com.atlassian.bamboo.specs.builders.trigger.BitbucketServerTrigger;
 import com.atlassian.bamboo.specs.util.BambooServer;
@@ -135,8 +133,8 @@ public class PlanSpec {
                                         .description("clean"),
                                 new MavenTask()
                                         .description("distr-download")
-                                        .goal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get -U")
-                                        .environmentVariables("MAVEN_OPTS=\"-Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo\"")
+                                        .goal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get")
+                                        .environmentVariables("MAVEN_OPTS=\"-Dtransitive=false -Ddest=/home/dboadmin/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT\"")
                                         .jdk("JRE 1.8")
                                         .executableLabel("Maven 3.6"),
                                 new ScriptTask()
