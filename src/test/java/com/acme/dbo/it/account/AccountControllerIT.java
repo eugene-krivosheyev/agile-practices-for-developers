@@ -5,8 +5,6 @@ import com.acme.dbo.account.domain.Account;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +14,6 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisabledIf(expression = "#{environment['features.account'] == 'false'}", loadContext = true)
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("it")
 @Slf4j

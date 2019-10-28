@@ -18,7 +18,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 
 @Configuration
 @EnableSwagger2
-@Profile({"it", "qa"})
+@Profile("it | qa")
 public class SwaggerConfig {
     private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES = new HashSet<>(asList("application/json"));
 
