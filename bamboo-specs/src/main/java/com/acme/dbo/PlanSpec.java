@@ -2,6 +2,7 @@ package com.acme.dbo;
 
 import com.atlassian.bamboo.specs.api.BambooSpec;
 import com.atlassian.bamboo.specs.api.builders.AtlassianModule;
+import com.atlassian.bamboo.specs.api.builders.permission.*;
 import com.atlassian.bamboo.specs.api.builders.deployment.Deployment;
 import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
 import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
@@ -13,6 +14,7 @@ import com.atlassian.bamboo.specs.api.builders.plan.branches.BranchCleanup;
 import com.atlassian.bamboo.specs.api.builders.plan.branches.PlanBranchManagement;
 import com.atlassian.bamboo.specs.api.builders.plan.configuration.ConcurrentBuilds;
 import com.atlassian.bamboo.specs.api.builders.project.Project;
+import com.atlassian.bamboo.specs.builders.task.*;
 import com.atlassian.bamboo.specs.api.builders.task.AnyTask;
 import com.atlassian.bamboo.specs.builders.trigger.AfterSuccessfulBuildPlanTrigger;
 import com.atlassian.bamboo.specs.builders.trigger.BitbucketServerTrigger;
