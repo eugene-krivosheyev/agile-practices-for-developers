@@ -1,5 +1,7 @@
 package com.acme.dbo.client.controller;
 
+import com.acme.dbo.account.dao.AccountRepository;
+import com.acme.dbo.account.domain.Account;
 import com.acme.dbo.client.dao.ClientRepository;
 import com.acme.dbo.client.domain.Client;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Collection;
+import java.util.Objects;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PUBLIC;
@@ -28,6 +31,7 @@ import static lombok.AccessLevel.PUBLIC;
 @Slf4j
 public class ClientController {
     @Autowired ClientRepository clients;
+    @Autowired AccountRepository accounts;
 
     @ApiOperation(value = "Registration", notes = "Registered new user in service", response = Client.class)
     @ApiResponse(code = 201, message = "Client created")
@@ -48,5 +52,15 @@ public class ClientController {
     public Client getClient(@PathVariable("id") @PositiveOrZero long id) {
         return clients.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("client #" + id));
+    }
+
+    @ApiOperation(value = "Deregistration", notes = "Delete client information")
+    @DeleteMapping("/{id}")
+    public void deleteClient(@PathVariable("id") @PositiveOrZero long id) {
+        accounts.findByClientId(id).stream()
+            .map(Account::getId)
+            .filter(Objects::nonNull)
+            .forEach(accounts::deleteById);
+        clients.deleteById(id);
     }
 }
