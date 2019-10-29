@@ -61,8 +61,9 @@ Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivity
 ### [Artifactory](http://84.201.134.115:8081)
 - [ ] Учетка
 - [ ] Локальная репошечка: dbo-corp, Allow Content Browsing
-- [ ] Удаленная репошечка: mvncentral, https://repo1.maven.org/maven2, Allow Content Browsing
-- [ ] Виртуальная репошечка dbo: добавить dbo-corp + mavencentral, Artifactory Requests Can Retrieve Remote Artifacts, Default Deployment Repository
+- [ ] Первая удаленная репошечка: jcenter, https://jcenter.bintray.com, Allow Content Browsing
+- [ ] Вторая удаленная репошечка: mvncentral, https://repo1.maven.org/maven2, Allow Content Browsing
+- [ ] Виртуальная репошечка dbo: добавить dbo-corp + jcenter + mavencentral, Default Deployment Repository, Artifactory Requests Can Retrieve Remote Artifacts
 - [ ] Обновить данные в IaaC/ansible/files/maven-settings.xml
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка
