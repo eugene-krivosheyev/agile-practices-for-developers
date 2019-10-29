@@ -1,7 +1,6 @@
 package com.acme.dbo.config;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,12 +15,16 @@ public class TestConfig {
     @Profile("it")
     public WebDriver webDriver() {
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(new ChromeOptions()
+        return new ChromeDriver(new ChromeOptions()
                 .addArguments("--headless")
                 .addArguments("--disable-gpu")
-                .addArguments("--start-maximized"));
+                .addArguments("--disable-dev-shm-usage")
+                .addArguments("--disable-extensions")
+                .addArguments("--no-sandbox")
+                .addArguments("--start-maximized")
+                .addArguments("--window-size=800,2000")
+                .addArguments("--ignore-certificate-errors")
 
-        driver.manage().window().setSize(new Dimension(800, 2_000));
-        return driver;
+        );
     }
 }
