@@ -8,10 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.Instant;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -36,7 +33,7 @@ public class Client {
     Long id;
 
     @ApiModelProperty(notes = "Client login for auth", required = true, example = "admin@email.com")
-    @NonNull @Pattern(regexp = "^[a-zA-Z0-9_@\\-\\\\.]+$") @Size(min = 5, max = 128)
+    @NonNull @Email @Size(min = 5, max = 128)
     @Column(name = "LOGIN")
     String login;
 
