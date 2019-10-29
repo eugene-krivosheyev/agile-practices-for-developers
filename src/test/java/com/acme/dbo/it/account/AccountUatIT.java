@@ -2,6 +2,7 @@ package com.acme.dbo.it.account;
 
 import com.acme.dbo.config.ScreenshotExceptionExtension;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.WebDriverRunner;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,8 @@ public class AccountUatIT {
         Configuration.reportsFolder = "target/surefire-reports";
 
         open(mainPage);
+        $(byClassName("main")).shouldBe(visible)
+                .$(Selectors.withText("Base URL:")).shouldBe(visible);
     }
 
     @AfterAll
