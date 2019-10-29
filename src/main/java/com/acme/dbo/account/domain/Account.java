@@ -27,11 +27,6 @@ public class Account {
     @EqualsAndHashCode.Exclude
     @Nullable Long id;
 
-    @Column(name = "CLIENT_ID", columnDefinition = "INTEGER")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @ApiModelProperty(dataType = "Long")
-    @Nullable Long clientId;
-
     @Column(name = "AMOUNT", columnDefinition = "DECIMAL(31, 16)")
     @ApiModelProperty(dataType = "String", required = true)
     @NonNull Double amount;
@@ -41,4 +36,9 @@ public class Account {
     @ApiModelProperty(dataType = "Instant")
     @EqualsAndHashCode.Exclude
     @Nullable @Past Instant createStamp;
+
+    @Column(name = "CLIENT_ID", columnDefinition = "INTEGER")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @ApiModelProperty(dataType = "Long")
+    @NonNull Long clientId;
 }
