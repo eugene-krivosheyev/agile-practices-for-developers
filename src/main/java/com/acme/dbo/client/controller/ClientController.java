@@ -38,29 +38,47 @@ public class ClientController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Client createClient(@RequestBody @Valid final Client clientDto) {
-        return clients.saveAndFlush(clientDto);
+        try {
+            Client clientCreated = clients.saveAndFlush(clientDto);
+            log.info("Client created #{}", clientCreated.getId());
+            return clientCreated;
+        } catch (Exception e) {
+            log.error("Client creation error for client data: " + clientDto, e);
+            throw e;
+        }
     }
 
     @ApiOperation(value = "Info", notes = "Get all clients", response = Collection.class)
     @GetMapping
     public Collection<Client> getClients() {
+        log.info("Client registry requested");
         return clients.findAll();
     }
 
     @ApiOperation(value = "Info", notes = "Get client information", response = Client.class)
     @GetMapping("/{id}")
     public Client getClient(@PathVariable("id") @PositiveOrZero long id) {
+        log.info("Client data requested for client #{}", id);
         return clients.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("client #" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Client #" + id));
     }
 
     @ApiOperation(value = "Deregistration", notes = "Delete client information")
     @DeleteMapping("/{id}")
-    public void deleteClient(@PathVariable("id") @PositiveOrZero long id) {
-        accounts.findByClientId(id).stream()
-            .map(Account::getId)
-            .filter(Objects::nonNull)
-            .forEach(accounts::deleteById);
-        clients.deleteById(id);
+    public void deleteClient(@PathVariable("id") @PositiveOrZero long clientId) {
+        try {
+            accounts.findByClientId(clientId).stream()
+                    .map(Account::getId)
+                    .filter(Objects::nonNull)
+                    .forEach(accountId -> {
+                        accounts.deleteById(accountId);
+                        log.info("Account deleted #{}", accountId);
+                    });
+            clients.deleteById(clientId);
+            log.info("Client deleted #{}", clientId);
+        } catch (Exception e) {
+            log.error("Client deletion error for client #" + clientId, e);
+            throw e;
+        }
     }
 }
