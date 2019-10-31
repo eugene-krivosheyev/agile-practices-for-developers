@@ -150,7 +150,8 @@ Wifi: ekr@bk.ru/P@ssw0rd
 - [x] Почему важно декомпозировать истории? Как обеспечить "тонкую нарезку" инкрементов?
 ### Первичный дизайн беклога
 #### Даны
-- [ ] Практика User Story Mapping
+- [ ] Практика [User Story Mapping](https://medium.com/@priyank.it/user-story-mapping-product-backlog-creation-7ea9a54f7f0e)
+- [ ] [http://storiesonboard.com/](http://storiesonboard.com/)
 - [ ] Практики декомпозиции историй
 #### Когда
 - [ ] Команды проведут USM
