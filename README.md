@@ -163,7 +163,11 @@ Wifi: ekr@bk.ru/P@ssw0rd
 ## Переход к разработке: дизайн процесса через выбор практик (1/0.5)
 - [ ] Современное отношение к дизайну процессов: от императивности и формальности к декларативности и гибкости
 - [ ] Выбор практик как process design core
+- [ ] Практика Pair Programming
+- [ ] Практика TDD
 - [ ] Практика [информационных радиаторов](http://84.201.134.115:8085/telemetry.action?filter=project&projectKey=DBO)
+- [ ] Практика Simple Design
+- [ ] Практика Refactoring
 - [ ] [Как DevOps помогает продуктовой разработке](https://paper.dropbox.com/doc/Delivery-Pipeline-ci-cd-devops--AbaLMZphhnvfm0spHme2SHkYAg-OBLCVRSkMek24U7IXIHbq)
 ### Проектируем модель зрелости процесса через практики
 #### Даны уровни зрелости процесса с т.з. продуктового бизнеса
