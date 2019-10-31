@@ -168,7 +168,7 @@ Wifi: ekr@bk.ru/P@ssw0rd
 - [ ] Практика [информационных радиаторов](http://84.201.134.115:8085/telemetry.action?filter=project&projectKey=DBO)
 - [ ] Практика Simple Design
 - [ ] Практика Refactoring
-- [ ] Trunc-based development (+ feature toggling) 
+- [ ] TBD (+FT) 
 - [ ] [Практики DevOps помогают продуктовой разработке](https://paper.dropbox.com/doc/Delivery-Pipeline-ci-cd-devops--AbaLMZphhnvfm0spHme2SHkYAg-OBLCVRSkMek24U7IXIHbq)
 ### Проектируем модель зрелости процесса через практики
 #### Даны уровни зрелости процесса с т.з. продуктового бизнеса
