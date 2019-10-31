@@ -2,7 +2,8 @@
 _Как поменять себя и процесс, чтобы втаскивать успешные продукты в большой компании._
 
 24 ак. часа, 18 астр. часов.
-10.2019, ekr@bk.ru
+10.2019, ekr@bk.ru,
+Wifi: ekr@bk.ru/P@ssw0rd
 
 ![Председатель правления Райффайзенбанка видит банк будущего как сеть автономных предпринимательских команд.](https://github.com/eugene-krivosheyev/agile-practices-for-developers/blob/master/vision.png?raw=true)
 
