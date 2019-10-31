@@ -150,11 +150,11 @@ Wifi: ekr@bk.ru/P@ssw0rd
 - [x] Почему важно декомпозировать истории? Как обеспечить "тонкую нарезку" инкрементов?
 ### Первичный дизайн беклога
 #### Даны
-- [ ] Практика [User Story Mapping](https://medium.com/@priyank.it/user-story-mapping-product-backlog-creation-7ea9a54f7f0e)
-- [ ] [http://storiesonboard.com/](http://storiesonboard.com/)
-- [ ] Практики декомпозиции историй
+- [x] Практика [User Story Mapping](https://medium.com/@priyank.it/user-story-mapping-product-backlog-creation-7ea9a54f7f0e)
+- [x] [http://storiesonboard.com/](http://storiesonboard.com/)
+- [x] Практики декомпозиции историй
 #### Когда
-- [ ] Команды проведут USM
+- [x] Команды проведут USM
 - [ ] Получат беклог
 #### Тогда на дебрифе
 - [ ] Команды применяют BPI DoD для верхушки беклога
@@ -168,7 +168,7 @@ Wifi: ekr@bk.ru/P@ssw0rd
 - [ ] Практика [информационных радиаторов](http://84.201.134.115:8085/telemetry.action?filter=project&projectKey=DBO)
 - [ ] Практика Simple Design
 - [ ] Практика Refactoring
-- [ ] [Как DevOps помогает продуктовой разработке](https://paper.dropbox.com/doc/Delivery-Pipeline-ci-cd-devops--AbaLMZphhnvfm0spHme2SHkYAg-OBLCVRSkMek24U7IXIHbq)
+- [ ] [Практики DevOps помогают продуктовой разработке](https://paper.dropbox.com/doc/Delivery-Pipeline-ci-cd-devops--AbaLMZphhnvfm0spHme2SHkYAg-OBLCVRSkMek24U7IXIHbq)
 ### Проектируем модель зрелости процесса через практики
 #### Даны уровни зрелости процесса с т.з. продуктового бизнеса
 1. Уровень: хоть как-то получаем хоть какой-то результат на prod
