@@ -3,7 +3,7 @@
 
 # Запуск и остановка докеризованных сервисов CI и ELK локально
 ```bash
-cd IaaC
+cd IaaS
 
 docker-compose --file ansible/files/ci-docker-compose.yml up --detach
 docker-compose --file ansible/files/elk-docker-compose.yml up --detach
@@ -15,7 +15,7 @@ docker-compose --file ansible/files/ci-docker-compose.yml down
 # Развертывание инфраструктуры удаленно
 ## Smoke test перед удаленной раскаткой 
 ```bash
-cd IaaC
+cd IaaS
 ssh-keygen -R 84.201.134.115
 ssh-keygen -R 84.201.157.139
 ansible -i ansible/hosts.yml -m shell -a 'uname -a' all
@@ -28,7 +28,7 @@ ansible-galaxy install -r ansible/requirements.yml
 
 ## Раскатка сервисов CI/CD
 ```bash
-cd IaaC
+cd IaaS
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting --tags "ci" [--skip-tags "maven"] [--start-at-task='Shut down CI docker containers'] [--step] [-vvv] 
 ```
 
@@ -64,7 +64,7 @@ Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivity
 - [ ] Первая удаленная репошечка: jcenter, https://jcenter.bintray.com, Allow Content Browsing
 - [ ] Вторая удаленная репошечка: mvncentral, https://repo1.maven.org/maven2, Allow Content Browsing
 - [ ] Виртуальная репошечка dbo: добавить dbo-corp + jcenter + mavencentral, Default Deployment Repository, Artifactory Requests Can Retrieve Remote Artifacts
-- [ ] Обновить данные в IaaC/ansible/files/maven-settings.xml
+- [ ] Обновить данные в IaaS/ansible/files/maven-settings.xml
 ### [SonarQube](http://84.201.134.115:9000)
 - [ ] Учетка
 - [ ] Плагины покрытия
@@ -72,7 +72,7 @@ Broker client URL: failover:(tcp://84.201.134.115:54663?wireFormat.maxInactivity
 
 ## Раскатка сервисов ELK
 ```bash
-cd IaaC
+cd IaaS
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting --tags "elk"
 ```
 - [ ] [Kibana](http://84.201.134.115:5601/app/kibana#/management/elasticsearch/index_management/indices?_g=())
@@ -80,7 +80,7 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_hosting -
 ## Раскатка сервисов на сборочный агент ci_agent
 - [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
 ```bash
-cd IaaC
+cd IaaS
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_agent
 ```
 - [ ] Ensure [Remote Agent](http://84.201.134.115:8085/admin/agent/configureAgents!doDefault.action) online
@@ -91,7 +91,7 @@ ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit ci_agent
 ## Раскатка сервисов на pre_prod
 - [ ] Ensure [Bamboo](http://84.201.134.115:8085) is running
 ```bash
-cd IaaC
+cd IaaS
 ansible-playbook -i ansible/hosts.yml ansible/inventory.yml --limit pre_prod
 ```
 - [ ] Ensure [Remote Agent](http://84.201.134.115:8085/admin/agent/configureAgents!doDefault.action) online
@@ -118,13 +118,13 @@ curl --request GET --header "X-API-VERSION:1" --url http://84.201.157.139:8080/d
 - Ручное копирование scp
 ```bash
 cd ..
-./mvnw package -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
+./mvnw package -s IaaS/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 scp -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem target/dbo-1.0-SNAPSHOT.jar admin@84.201.157.139:/home/dboadmin/dbo/
 ```
 
 - Ручное копирование через Maven Repo
 ```bash
-./mvnw deploy -s Iaac/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
+./mvnw deploy -s IaaS/ansible/files/maven-settings.xml -DskipTests -Djava.awt.headless=true -DdependencyLocationsEnabled=false -Dlogback.configurationFile=logback.xml
 ssh -i ~/Dropbox/Eugene/Backups/agile-practices-dev.pem admin@84.201.157.139
 admin@pre-prod:/home/dboadmin/dbo$ mvn -s /home/bambooagent/.m2/settings.xml org.apache.maven.plugins:maven-dependency-plugin:2.4:get -Dtransitive=false -Dartifact=com.acme.banking:dbo:1.0-SNAPSHOT -Ddest=/dbo/dbo-1.0-SNAPSHOT.jar -DremoteRepositories=dbo-artifacts-server::::http://84.201.134.115:8081/artifactory/dbo 
 ```
