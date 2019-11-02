@@ -1,40 +1,31 @@
 version: "3.7"
 services:
-  git_hosting:
-    image: atlassian/bitbucket-server:6.7
-    container_name: git_hosting
-    volumes:
+  git_server:
+    container_name: git_server
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile-bitbucket
+    volumes: 
       - bitbucket_volume:/var/atlassian/application-data/bitbucket
+    networks: 
+      - ci_network
+      - default
     ports:
       - "7990:7990"
       - "7999:7999"
-    networks:
-      - ci_network
-    restart: always
-    environment:
-      - ELASTICSEARCH_ENABLED=false
-      - JVM_MINIMUM_MEMORY=1g
-      - JVM_MAXIMUM_MEMORY=1g
-      - setup.displayName=Bitbucket
-      - setup.baseUrl=http://bitbucket:7990
-      - setup.sysadmin.username=admin
-      - setup.sysadmin.password=#TODO Set bitbucket admin password
-      - setup.sysadmin.displayName=Admin
-      - setup.sysadmin.emailAddress=ekr@list.ru
-      - setup.license=#TODO Set bitbucket license
-      - feature.public.access=false
 
   ci_server:
-    image: atlassian/bamboo-server:6.10.3
     container_name: ci_server
-    volumes:
+    restart: always
+    image: atlassian/bamboo-server:6.10.3
+    volumes: 
       - bamboo_volume:/var/atlassian/application-data/bamboo
+    networks: 
+      - ci_network
     ports:
       - "8085:8085"
       - "54663:54663"
-    networks:
-      - ci_network
-    restart: always
     environment:
       - JVM_MINIMUM_MEMORY=1g
       - JVM_MAXIMUM_MEMORY=1g
